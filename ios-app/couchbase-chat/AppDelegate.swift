@@ -34,6 +34,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+
+        if database == nil {
+            print("Unable to initialize Couchbase Lite")
+            return false
+        }
+
+        // Initialize replication:
+        _push = setupReplication(database.createPushReplication(kServerDbURL))
+        _pull = setupReplication(database.createPullReplication(kServerDbURL))
+        _push.start()
+        _pull.start()
+
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
@@ -75,6 +87,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         return false
     }
+
+    // MARK: - Couchbase
+
+
+    func setupReplication(replication: CBLReplication!) -> CBLReplication! {
+        if replication != nil {
+            replication.continuous = true
+            NSNotificationCenter.defaultCenter().addObserver(self,
+                selector: "replicationProgress:",
+                name: kCBLReplicationChangeNotification,
+                object: replication)
+        }
+        return replication
+    }
+
+
+    func replicationProgress(n: NSNotification) {
+        if (_pull.status == CBLReplicationStatus.Active || _push.status == CBLReplicationStatus.Active) {
+            // Sync is active -- aggregate the progress of both replications and compute a fraction:
+            let completed = _pull.completedChangesCount + _push.completedChangesCount
+            let total = _pull.changesCount + _push.changesCount
+            print("SYNC progress: %u / %u", completed, total)
+        }
+
+        // Check for any change in error status and display new errors:
+        let error = _pull.lastError ?? _push.lastError
+        if (error != _syncError) {
+            _syncError = error
+            if error != nil {
+                print("Error syncing", forError: error)
+            }
+        }
+    }
+
 
 }
 

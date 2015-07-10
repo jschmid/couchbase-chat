@@ -48,19 +48,9 @@ class MasterViewController: UITableViewController {
         let live = query.asLiveQuery()
         live.descending = true
 
+        live.addObserver(self, forKeyPath: "rows", options: [], context: nil)
+
         liveQuery = live
-
-        // Magic line
-        live.waitForRows()
-
-        if let rows = live.rows {
-            for row in rows {
-                print(row)
-            }
-        } else if let error = live.lastError {
-            print("Error")
-            print(error)
-        }
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -68,11 +58,11 @@ class MasterViewController: UITableViewController {
         super.viewWillAppear(animated)
     }
 
-    func insertNewObject(sender: AnyObject) {
-//        objects.insert(NSDate(), atIndex: 0)
-//        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-//        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+    deinit {
+        liveQuery?.removeObserver(self, forKeyPath: "rows")
+    }
 
+    func insertNewObject(sender: AnyObject) {
         let newChatroom = database.createDocument()
         let properties = ["type": "chatroom", "name": "from code"]
 
@@ -81,6 +71,10 @@ class MasterViewController: UITableViewController {
         } catch {
             print("Could not create a new room")
         }
+    }
+
+    override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [NSObject : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        self.tableView.reloadData()
     }
 
     // MARK: - Segues
@@ -134,8 +128,17 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
-//            objects.removeAtIndex(indexPath.row)
-//            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+
+            if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)) {
+                let doc = row.document
+
+                do {
+                    try doc?.deleteDocument()
+                } catch {
+                    print("Could not delete")
+                }
+            }
+
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }

@@ -72,6 +72,16 @@ class ChatViewController: UIViewController {
     }
 
     @IBAction func sendClick(sender: UIButton) {
+        sendMessage()
+    }
+
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        sendMessage()
+
+        return true
+    }
+
+    func sendMessage() {
         let text = textField.text
 
         if text == nil || text?.lengthOfBytesUsingEncoding(NSUTF8StringEncoding) <= 0 {
@@ -89,7 +99,7 @@ class ChatViewController: UIViewController {
 
         let doc = database.createDocument()
         try! doc.putProperties(properties)
-
+        
         textField.text = ""
     }
 

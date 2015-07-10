@@ -11,9 +11,8 @@ import UIKit
 class MasterViewController: UITableViewController {
 
     var detailViewController: ChatViewController? = nil
-    var objects = [AnyObject]()
 
-    private var dataSource = CBLUITableSource()
+    private var rows: CBLQueryEnumerator?
 
     var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -49,20 +48,10 @@ class MasterViewController: UITableViewController {
 
         do {
             let enumerator = try query.run()
-            for row in enumerator {
-                print(row)
-            }
+            rows = enumerator
         } catch {
             print("Could not run query")
         }
-
-//        let liveQuery = query.asLiveQuery()
-//        liveQuery.descending = true
-
-//        dataSource.query = liveQuery
-//        dataSource.labelProperty = "name"
-//
-//        self.tableView.dataSource = dataSource
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -81,46 +70,58 @@ class MasterViewController: UITableViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
-                let object = objects[indexPath.row] as! NSDate
                 let controller = (segue.destinationViewController as! UINavigationController).topViewController as! ChatViewController
-                controller.detailItem = object.description
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
+
+                if let row = rows?.rowAtIndex(UInt(indexPath.row)),
+                    let name = row.key as? String {
+                        controller.detailItem = name
+                }
             }
         }
     }
 
     // MARK: - Table View
 
-//    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-//        return 1
-//    }
-//
-//    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return 5;
-//    }
-//
-//    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-//
-//        let object = objects[indexPath.row] as! NSDate
-//        cell.textLabel!.text = object.description
-//        return cell
-//    }
-//
-//    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        // Return false if you do not want the specified item to be editable.
-//        return true
-//    }
-//
-//    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-//        if editingStyle == .Delete {
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return rows == nil ? 0 : 1
+    }
+
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        if let rows = rows {
+            let count = rows.count
+            return Int(count)
+        }
+
+        return 0
+    }
+
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+
+        if let row = rows?.rowAtIndex(UInt(indexPath.row)),
+            let name = row.key as? String {
+                cell.textLabel?.text = name
+        }
+
+        return cell
+    }
+
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+
+    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
 //            objects.removeAtIndex(indexPath.row)
 //            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-//        } else if editingStyle == .Insert {
-//            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-//        }
-//    }
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
 
 
 }

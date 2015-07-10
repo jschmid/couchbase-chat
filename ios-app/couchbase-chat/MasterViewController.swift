@@ -12,7 +12,7 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: ChatViewController? = nil
 
-    private var rows: CBLQueryEnumerator?
+    private var liveQuery: CBLLiveQuery?
 
     var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
@@ -45,12 +45,21 @@ class MasterViewController: UITableViewController {
         // Init datasource
 
         let query = database.viewNamed("chatrooms").createQuery()
+        let live = query.asLiveQuery()
+        live.descending = true
 
-        do {
-            let enumerator = try query.run()
-            rows = enumerator
-        } catch {
-            print("Could not run query")
+        liveQuery = live
+
+        // Magic line
+        live.waitForRows()
+
+        if let rows = live.rows {
+            for row in rows {
+                print(row)
+            }
+        } else if let error = live.lastError {
+            print("Error")
+            print(error)
         }
     }
 
@@ -63,6 +72,15 @@ class MasterViewController: UITableViewController {
 //        objects.insert(NSDate(), atIndex: 0)
 //        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
 //        self.tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+
+        let newChatroom = database.createDocument()
+        let properties = ["type": "chatroom", "name": "from code"]
+
+        do {
+            try newChatroom.putProperties(properties)
+        } catch {
+            print("Could not create a new room")
+        }
     }
 
     // MARK: - Segues
@@ -74,7 +92,7 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
-                if let row = rows?.rowAtIndex(UInt(indexPath.row)),
+                if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
                     let name = row.key as? String {
                         controller.detailItem = name
                 }
@@ -85,12 +103,12 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return rows == nil ? 0 : 1
+        return liveQuery?.rows == nil ? 0 : 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        if let rows = rows {
+        if let rows = liveQuery?.rows {
             let count = rows.count
             return Int(count)
         }
@@ -101,7 +119,7 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
-        if let row = rows?.rowAtIndex(UInt(indexPath.row)),
+        if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
             let name = row.key as? String {
                 cell.textLabel?.text = name
         }

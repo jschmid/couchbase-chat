@@ -8,11 +8,30 @@
 
 import UIKit
 
+private let kDatabaseName = "couchbase-chat"
+
+private let kServerDbURL = NSURL(string: "http://192.168.1.41:4984/couchbase-chat/")!
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
     var window: UIWindow?
 
+
+    private var _push: CBLReplication!
+    private var _pull: CBLReplication!
+    private var _syncError: NSError?
+
+    let database: CBLDatabase!
+
+    override init() {
+        do {
+            let manager = CBLManager.sharedInstance()
+            try database = manager.databaseNamed(kDatabaseName)
+        } catch {
+            database = nil
+        }
+    }
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.

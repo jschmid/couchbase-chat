@@ -9,21 +9,21 @@
 /* Begin PBXBuildFile section */
 		DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E211B4FB0D6009D68FF /* AppDelegate.swift */; };
 		DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E231B4FB0D6009D68FF /* MasterViewController.swift */; };
-		DD609E261B4FB0D6009D68FF /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E251B4FB0D6009D68FF /* DetailViewController.swift */; };
 		DD609E291B4FB0D6009D68FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD609E271B4FB0D6009D68FF /* Main.storyboard */; };
 		DD609E2B1B4FB0D6009D68FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */; };
 		DD609E2E1B4FB0D6009D68FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD609E2C1B4FB0D6009D68FF /* LaunchScreen.storyboard */; };
+		DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		DD609E1E1B4FB0D6009D68FF /* couchbase-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "couchbase-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD609E211B4FB0D6009D68FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD609E231B4FB0D6009D68FF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		DD609E251B4FB0D6009D68FF /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		DD609E281B4FB0D6009D68FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD609E2D1B4FB0D6009D68FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD609E2F1B4FB0D6009D68FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 			children = (
 				DD609E211B4FB0D6009D68FF /* AppDelegate.swift */,
 				DD609E231B4FB0D6009D68FF /* MasterViewController.swift */,
-				DD609E251B4FB0D6009D68FF /* DetailViewController.swift */,
+				DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */,
 				DD609E271B4FB0D6009D68FF /* Main.storyboard */,
 				DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */,
 				DD609E2C1B4FB0D6009D68FF /* LaunchScreen.storyboard */,
@@ -137,8 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD609E261B4FB0D6009D68FF /* DetailViewController.swift in Sources */,
 				DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */,
+				DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */,
 				DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,6 +289,7 @@
 				DD609E341B4FB0D6009D68FF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

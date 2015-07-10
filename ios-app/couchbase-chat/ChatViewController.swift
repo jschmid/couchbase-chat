@@ -10,6 +10,8 @@ import UIKit
 
 class ChatViewController: UIViewController {
 
+    @IBOutlet weak var tableView: UITableView!
+
     var detailItem: String? {
         didSet {
             self.configureView()
@@ -25,6 +27,28 @@ class ChatViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureView()
+    }
+
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cellIdentifier = "messageCell"
+
+        var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as UITableViewCell!
+
+        if cell == nil {
+            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: cellIdentifier)
+        }
+
+        if let cell = cell {
+            cell.textLabel!.text = "Yeah"
+            cell.detailTextLabel?.text = "ok"
+        }
+
+        return cell
+
     }
 
 }

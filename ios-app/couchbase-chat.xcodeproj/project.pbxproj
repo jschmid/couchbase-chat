@@ -17,6 +17,7 @@
 		DDEF39BC1B4FE9EF007EE7C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */; };
 		DDEF39BE1B4FEA7D007EE7C2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */; };
 		DDEF39C41B4FEB4C007EE7C2 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39C31B4FEB4C007EE7C2 /* libz.1.dylib */; };
+		DDEF39C61B4FF064007EE7C2 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDEF39C51B4FF064007EE7C2 /* Utilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		DDEF39C31B4FEB4C007EE7C2 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/libz.1.dylib; sourceTree = DEVELOPER_DIR; };
+		DDEF39C51B4FF064007EE7C2 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				DD609E2C1B4FB0D6009D68FF /* LaunchScreen.storyboard */,
 				DD609E2F1B4FB0D6009D68FF /* Info.plist */,
 				DDC39ADE1B4FE81D0065CC34 /* couchbase-chat-Bridging-Header.h */,
+				DDEF39C51B4FF064007EE7C2 /* Utilities.swift */,
 			);
 			path = "couchbase-chat";
 			sourceTree = "<group>";
@@ -166,6 +169,7 @@
 			files = (
 				DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */,
 				DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */,
+				DDEF39C61B4FF064007EE7C2 /* Utilities.swift in Sources */,
 				DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

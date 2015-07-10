@@ -88,7 +88,7 @@ class MasterViewController: UITableViewController {
 
                 if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
                     let name = row.key as? String {
-                        controller.detailItem = name
+                        controller.chatroom = name
                 }
             }
         }

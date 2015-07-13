@@ -14,6 +14,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
 
     override func viewDidLoad() {
+    }
+
+    override func viewDidAppear(animated: Bool) {
         let prefs = NSUserDefaults.standardUserDefaults()
 
         if let username = prefs.stringForKey("username"),

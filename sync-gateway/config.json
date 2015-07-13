@@ -49,16 +49,16 @@
           channel("users")
         } else if(doc.type == "chatroom") {
           var roomId = doc._id;
-          var members = doc.members;
+          var roomMembers = doc.members;
           var roomRole = "role:" + roomId;
           var roomChannel = "room-" + roomId;
           channel(roomChannel);
-          role(members, roomRole);
+          role(roomMembers, roomRole);
           access(roomRole, roomChannel);
         } else if(doc.type == "message") {
           var roomId = doc.room;
           var messageChannel = "room-" + roomId;
-          channel(roomChannel);
+          channel(messageChannel);
         }
       }
       `

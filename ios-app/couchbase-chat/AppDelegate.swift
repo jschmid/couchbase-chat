@@ -108,7 +108,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             // Sync is active -- aggregate the progress of both replications and compute a fraction:
             let completed = _pull.completedChangesCount + _push.completedChangesCount
             let total = _pull.changesCount + _push.changesCount
-            print("SYNC progress: %u / %u", completed, total)
+            print("SYNC progress: \(completed) / \(total)")
         }
 
         // Check for any change in error status and display new errors:

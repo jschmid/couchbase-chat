@@ -11,8 +11,8 @@ import UIKit
 class ChatViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-
     @IBOutlet weak var textField: UITextField!
+
     private var liveQuery: CBLLiveQuery?
 
     var database: CBLDatabase = {

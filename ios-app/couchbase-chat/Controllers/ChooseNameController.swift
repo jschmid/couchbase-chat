@@ -23,9 +23,6 @@ class ChooseNameController: UIViewController {
         }()
 
     override func viewDidLoad() {
-        // Make sure we are in the room
-        let app = UIApplication.sharedApplication().delegate as! AppDelegate
-        selectedUsers?.insert(app.syncHelper!.username)
     }
 
     @IBAction func createClick(sender: UIBarButtonItem) {

@@ -50,7 +50,7 @@
         } else if(doc.type == "chatroom") {
           var roomId = doc._id;
           var roomMembers = doc.members;
-          var roomRole = "role:" + roomId;
+          var roomRole = "role:role-" + roomId;
           var roomChannel = "room-" + roomId;
           channel(roomChannel);
           role(roomMembers, roomRole);

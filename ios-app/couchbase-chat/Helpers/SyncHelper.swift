@@ -54,10 +54,6 @@ class SyncHelper: NSObject {
 
     private var lastSyncError: NSError?
     func replicationProgress(n: NSNotification) {
-        print("Pull status \(pull.status.rawValue)")
-        print("Pull error \(pull.lastError)")
-        print("Push status \(push.status.rawValue)")
-        print("Push error \(push.lastError)")
         if (pull.status == CBLReplicationStatus.Active || push.status == CBLReplicationStatus.Active) {
             // Sync is active -- aggregate the progress of both replications and compute a fraction:
             let completed = pull.completedChangesCount + push.completedChangesCount

@@ -12,6 +12,7 @@ class LoginViewController: UIViewController {
 
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
+
     override func viewDidLoad() {
         let prefs = NSUserDefaults.standardUserDefaults()
 
@@ -39,6 +40,11 @@ class LoginViewController: UIViewController {
         let prefs = NSUserDefaults.standardUserDefaults()
         prefs.setObject(username, forKey: "username")
         prefs.setObject(password, forKey: "password")
+
+        // Async call because this method may be called from viewDidLoad and the performSegue will not work
+        dispatch_async(dispatch_get_main_queue()) {
+            self.performSegueWithIdentifier("chatSegue", sender: self)
+        }
     }
 
 }

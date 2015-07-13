@@ -13,7 +13,7 @@ private let kServerDbURL = NSURL(string: "http://192.168.1.41:4984/couchbase-cha
 
 class SyncHelper: NSObject {
     private let syncURL: NSURL = kServerDbURL
-    private let username: String
+    let username: String
     private let password: String
     private let creds: NSURLCredential
 

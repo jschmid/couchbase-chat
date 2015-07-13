@@ -16,6 +16,8 @@
 		DDC028761B53AE95000419A2 /* SyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC028751B53AE95000419A2 /* SyncHelper.swift */; };
 		DDC39ADC1B4FE80C0065CC34 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC39ADA1B4FE80C0065CC34 /* CouchbaseLite.framework */; };
 		DDCF91181B53BB2900C1DBAF /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDCF91171B53BB2900C1DBAF /* LoginViewController.swift */; };
+		DDDE97E21B53D90900AFA829 /* ChooseUsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDE97E11B53D90900AFA829 /* ChooseUsersController.swift */; };
+		DDDE97E41B53D91D00AFA829 /* ChooseNameController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDDE97E31B53D91D00AFA829 /* ChooseNameController.swift */; };
 		DDEF39BC1B4FE9EF007EE7C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */; };
 		DDEF39BE1B4FEA7D007EE7C2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */; };
 		DDEF39C41B4FEB4C007EE7C2 /* libz.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39C31B4FEB4C007EE7C2 /* libz.1.dylib */; };
@@ -35,6 +37,8 @@
 		DDC39ADA1B4FE80C0065CC34 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		DDC39ADE1B4FE81D0065CC34 /* couchbase-chat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "couchbase-chat-Bridging-Header.h"; sourceTree = "<group>"; };
 		DDCF91171B53BB2900C1DBAF /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = Controllers/LoginViewController.swift; sourceTree = "<group>"; };
+		DDDE97E11B53D90900AFA829 /* ChooseUsersController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChooseUsersController.swift; path = Controllers/ChooseUsersController.swift; sourceTree = "<group>"; };
+		DDDE97E31B53D91D00AFA829 /* ChooseNameController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChooseNameController.swift; path = Controllers/ChooseNameController.swift; sourceTree = "<group>"; };
 		DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		DDEF39C31B4FEB4C007EE7C2 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/libz.1.dylib; sourceTree = DEVELOPER_DIR; };
@@ -103,6 +107,8 @@
 				DD609E231B4FB0D6009D68FF /* MasterViewController.swift */,
 				DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */,
 				DDCF91171B53BB2900C1DBAF /* LoginViewController.swift */,
+				DDDE97E11B53D90900AFA829 /* ChooseUsersController.swift */,
+				DDDE97E31B53D91D00AFA829 /* ChooseNameController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -190,7 +196,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDCF91181B53BB2900C1DBAF /* LoginViewController.swift in Sources */,
+				DDDE97E21B53D90900AFA829 /* ChooseUsersController.swift in Sources */,
 				DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */,
+				DDDE97E41B53D91D00AFA829 /* ChooseNameController.swift in Sources */,
 				DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */,
 				DDC028761B53AE95000419A2 /* SyncHelper.swift in Sources */,
 				DDEF39C61B4FF064007EE7C2 /* Utilities.swift in Sources */,

@@ -102,7 +102,7 @@ class ChatViewController: UIViewController {
             "room": self.chatroomId!,
             "created_at": CBLJSON.JSONObjectWithDate(NSDate()),
             "message": message
-        ];
+        ]
 
         let doc = database.createDocument()
         try! doc.putProperties(properties)

@@ -80,7 +80,6 @@
                     <connections>
                         <outlet property="passwordTextField" destination="lDc-oO-Jx3" id="9Kg-Zy-g4e"/>
                         <outlet property="usernameTextField" destination="pTb-2C-GJD" id="95u-6R-ziD"/>
-                        <segue destination="H1p-Uh-vWS" kind="show" identifier="chatSegue" id="f31-tw-aaX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cQ1-1B-LUI" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -345,6 +344,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6S0-TO-JiA"/>
+        <segue reference="Tll-UG-LXB"/>
     </inferredMetricsTieBreakers>
 </document>

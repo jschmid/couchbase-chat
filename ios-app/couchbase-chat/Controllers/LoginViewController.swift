@@ -35,8 +35,8 @@ class LoginViewController: UIViewController {
     private func startLogin(username: String, password: String) {
         let syncHelper = SyncHelper(username: username, password: password)
 
-        let app = UIApplication.sharedApplication().delegate as? AppDelegate
-        app?.syncHelper = syncHelper
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        app.syncHelper = syncHelper
 
         syncHelper.start()
 
@@ -46,7 +46,10 @@ class LoginViewController: UIViewController {
 
         // Async call because this method may be called from viewDidLoad and the performSegue will not work
         dispatch_async(dispatch_get_main_queue()) {
-            self.performSegueWithIdentifier("chatSegue", sender: self)
+            let ctrl = self.storyboard?.instantiateViewControllerWithIdentifier("splitViewController")
+            app.window!.rootViewController = ctrl
+            app.isLoggedIn()
+
         }
     }
 

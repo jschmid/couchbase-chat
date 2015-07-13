@@ -8,8 +8,6 @@
 
 import UIKit
 
-private let kDatabaseName = "couchbase-chat"
-
 private let kServerDbURL = NSURL(string: "http://192.168.1.41:4984/couchbase-chat/")!
 
 @UIApplicationMain
@@ -17,34 +15,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     var window: UIWindow?
 
-
-    private var _push: CBLReplication!
-    private var _pull: CBLReplication!
-    private var _syncError: NSError?
-
-    let database: CBLDatabase!
-
-    override init() {
-        do {
-            let manager = CBLManager.sharedInstance()
-            try database = manager.databaseNamed(kDatabaseName)
-        } catch {
-            database = nil
-        }
-    }
+    var syncHelper: SyncHelper?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        if database == nil {
-            print("Unable to initialize Couchbase Lite")
-            return false
-        }
-
-        // Initialize replication:
-        _push = setupReplication(database.createPushReplication(kServerDbURL))
-        _pull = setupReplication(database.createPullReplication(kServerDbURL))
-        _push.start()
-        _pull.start()
+        syncHelper = SyncHelper(syncURL: kServerDbURL, username: "user1", password: "user1")
+        syncHelper?.start()
 
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as! UISplitViewController
@@ -87,40 +63,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         return false
     }
-
-    // MARK: - Couchbase
-
-
-    func setupReplication(replication: CBLReplication!) -> CBLReplication! {
-        if replication != nil {
-            replication.continuous = true
-            NSNotificationCenter.defaultCenter().addObserver(self,
-                selector: "replicationProgress:",
-                name: kCBLReplicationChangeNotification,
-                object: replication)
-        }
-        return replication
-    }
-
-
-    func replicationProgress(n: NSNotification) {
-        if (_pull.status == CBLReplicationStatus.Active || _push.status == CBLReplicationStatus.Active) {
-            // Sync is active -- aggregate the progress of both replications and compute a fraction:
-            let completed = _pull.completedChangesCount + _push.completedChangesCount
-            let total = _pull.changesCount + _push.changesCount
-            print("SYNC progress: \(completed) / \(total)")
-        }
-
-        // Check for any change in error status and display new errors:
-        let error = _pull.lastError ?? _push.lastError
-        if (error != _syncError) {
-            _syncError = error
-            if error != nil {
-                print("Error syncing", forError: error)
-            }
-        }
-    }
-
-
 }
 

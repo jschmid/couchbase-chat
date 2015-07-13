@@ -15,9 +15,9 @@ class ChatViewController: UIViewController {
 
     private var liveQuery: CBLLiveQuery?
 
-    var database: CBLDatabase = {
+    lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
-        let db = app.database
+        let db = app.syncHelper!.database
 
         db.viewNamed("messages").setMapBlock("2") { (doc, emit) in
             if let type = doc["type"] as? String where type == "message" {

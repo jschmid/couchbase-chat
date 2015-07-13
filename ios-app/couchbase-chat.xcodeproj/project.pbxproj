@@ -13,6 +13,7 @@
 		DD609E2B1B4FB0D6009D68FF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */; };
 		DD609E2E1B4FB0D6009D68FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD609E2C1B4FB0D6009D68FF /* LaunchScreen.storyboard */; };
 		DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */; };
+		DDC028761B53AE95000419A2 /* SyncHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDC028751B53AE95000419A2 /* SyncHelper.swift */; };
 		DDC39ADC1B4FE80C0065CC34 /* CouchbaseLite.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDC39ADA1B4FE80C0065CC34 /* CouchbaseLite.framework */; };
 		DDEF39BC1B4FE9EF007EE7C2 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */; };
 		DDEF39BE1B4FEA7D007EE7C2 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */; };
@@ -29,6 +30,7 @@
 		DD609E2D1B4FB0D6009D68FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD609E2F1B4FB0D6009D68FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Controllers/ChatViewController.swift; sourceTree = "<group>"; };
+		DDC028751B53AE95000419A2 /* SyncHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SyncHelper.swift; path = Helpers/SyncHelper.swift; sourceTree = "<group>"; };
 		DDC39ADA1B4FE80C0065CC34 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		DDC39ADE1B4FE81D0065CC34 /* couchbase-chat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "couchbase-chat-Bridging-Header.h"; sourceTree = "<group>"; };
 		DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -88,6 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				DDEF39C51B4FF064007EE7C2 /* Utilities.swift */,
+				DDC028751B53AE95000419A2 /* SyncHelper.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -185,6 +188,7 @@
 			files = (
 				DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */,
 				DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */,
+				DDC028761B53AE95000419A2 /* SyncHelper.swift in Sources */,
 				DDEF39C61B4FF064007EE7C2 /* Utilities.swift in Sources */,
 				DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */,
 			);

@@ -1,8 +1,8 @@
 # Couchbase chat
 
-A test app trying the capabilities of Couchbase, the Sync Gateway and Couchbase Lite.
+A test app trying the capabilities of [Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server), the [Sync Gateway](http://developer.couchbase.com/mobile/get-started/what-is-sync-gateway/index.html) and [Couchbase Lite](http://developer.couchbase.com/mobile/get-started/couchbase-lite-overview/index.html).
 
-The app is a simple chat app with different chatroom. A user can create a room and choose which use is included. Using roles and channels, each user receives only what he needs.
+The app is a simple chat app with different chatrooms. A user can create a room and choose which user is included. Using roles and channels, each user receives only what he needs.
 
 ## Data model
 

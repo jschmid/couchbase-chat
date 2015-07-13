@@ -23,18 +23,18 @@
 /* Begin PBXFileReference section */
 		DD609E1E1B4FB0D6009D68FF /* couchbase-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "couchbase-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD609E211B4FB0D6009D68FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DD609E231B4FB0D6009D68FF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
+		DD609E231B4FB0D6009D68FF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MasterViewController.swift; path = Controllers/MasterViewController.swift; sourceTree = "<group>"; };
 		DD609E281B4FB0D6009D68FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD609E2D1B4FB0D6009D68FF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD609E2F1B4FB0D6009D68FF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChatViewController.swift; path = Controllers/ChatViewController.swift; sourceTree = "<group>"; };
 		DDC39ADA1B4FE80C0065CC34 /* CouchbaseLite.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CouchbaseLite.framework; path = Frameworks/CouchbaseLite.framework; sourceTree = "<group>"; };
 		DDC39ADE1B4FE81D0065CC34 /* couchbase-chat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "couchbase-chat-Bridging-Header.h"; sourceTree = "<group>"; };
 		DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/libsqlite3.dylib; sourceTree = DEVELOPER_DIR; };
 		DDEF39C31B4FEB4C007EE7C2 /* libz.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.dylib; path = Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/usr/lib/libz.1.dylib; sourceTree = DEVELOPER_DIR; };
-		DDEF39C51B4FF064007EE7C2 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		DDEF39C51B4FF064007EE7C2 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = Helpers/Utilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,16 +73,32 @@
 			isa = PBXGroup;
 			children = (
 				DD609E211B4FB0D6009D68FF /* AppDelegate.swift */,
-				DD609E231B4FB0D6009D68FF /* MasterViewController.swift */,
-				DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */,
+				DDC028731B53AE00000419A2 /* Helpers */,
+				DDC028741B53AE0B000419A2 /* Controllers */,
 				DD609E271B4FB0D6009D68FF /* Main.storyboard */,
 				DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */,
 				DD609E2C1B4FB0D6009D68FF /* LaunchScreen.storyboard */,
 				DD609E2F1B4FB0D6009D68FF /* Info.plist */,
 				DDC39ADE1B4FE81D0065CC34 /* couchbase-chat-Bridging-Header.h */,
-				DDEF39C51B4FF064007EE7C2 /* Utilities.swift */,
 			);
 			path = "couchbase-chat";
+			sourceTree = "<group>";
+		};
+		DDC028731B53AE00000419A2 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				DDEF39C51B4FF064007EE7C2 /* Utilities.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		DDC028741B53AE0B000419A2 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				DD609E231B4FB0D6009D68FF /* MasterViewController.swift */,
+				DD61BEB41B4FC7DD007B7860 /* ChatViewController.swift */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 		DDC39AD91B4FE7FA0065CC34 /* Frameworks */ = {

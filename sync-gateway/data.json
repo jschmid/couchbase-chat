@@ -1,0 +1,20 @@
+{
+    "docs": [
+        {
+            "type": "user",
+            "username": "user1"
+        },
+        {
+            "type": "user",
+            "username": "user2"
+        },
+        {
+            "type": "user",
+            "username": "user3"
+        },
+        {
+            "type": "user",
+            "username": "user4"
+        }
+    ]
+}

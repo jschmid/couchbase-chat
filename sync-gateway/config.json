@@ -1,31 +1,65 @@
 {
-   "log":[
-      "REST",
-      "Shadow",
-      "CRUD",
-      "CRUD+",
-      "HTTP",
-      "HTTP+",
-      "Access",
-      "Changes",
-      "Changes+",
-      "Auth",
-      "SSL"
-   ],
-   "databases":{
-      "couchbase-chat":{
-         "server":"http://192.168.59.103:8091/",
-         "users":{
-            "GUEST":{
-               "disabled":false,
-               "all_channels":[
-                  "*"
-               ],
-               "admin_channels":[
-                  "*"
-               ]
-            }
-         }
+  "log": [
+    "REST",
+    "Shadow",
+    "CRUD",
+    "CRUD+",
+    "HTTP",
+    "HTTP+",
+    "Access",
+    "Changes",
+    "Changes+",
+    "Auth",
+    "SSL"
+  ],
+  "databases": {
+    "couchbase-chat": {
+      "server": "http://192.168.59.103:8091/",
+      "users": {
+        "user1": {
+          "password": "user1",
+          "admin_channels": ["users"]
+        },
+        "user2": {
+          "password": "user2",
+          "admin_channels": ["users"]
+        },
+        "user3": {
+          "password": "user3",
+          "admin_channels": ["users"]
+        },
+        "user4": {
+          "password": "user4",
+          "admin_channels": ["users"]
+        },
+        "GUEST": {
+          "disabled": false,
+          "all_channels": [
+            "*"
+          ],
+          "admin_channels": [
+            "*"
+          ]
+        }
+      },
+      "sync":
+      `
+      function(doc, oldDoc) {
+        if (doc.type == "user") {
+          channel("users")
+        } else if(doc.type == "chatroom") {
+          var roomId = doc._id;
+          var roomMembers = doc.members;
+          var roomChannel = "room-" + roomId;
+          channel(roomChannel);
+          access(roomMembers, roomChannel);
+        } else if(doc.type == "message") {
+          var roomId = doc.room;
+          var messageChannel = "room-" + roomId;
+          channel(messageChannel);
+        }
       }
-   }
+      `
+    }
+  }
 }

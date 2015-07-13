@@ -19,12 +19,13 @@ class ChatViewController: UIViewController {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
 
-        db.viewNamed("messages").setMapBlock("2") { (doc, emit) in
+        db.viewNamed("messages").setMapBlock("3") { (doc, emit) in
             if let type = doc["type"] as? String where type == "message" {
                 if let room = doc["room"] as? String,
                     let date = doc["created_at"] as? String,
+                    let username = doc["user"] as? String,
                     let message = doc["message"] as? String {
-                    emit([room, date], message)
+                    emit([room, date], [username, message])
                 }
             }
         }
@@ -95,12 +96,15 @@ class ChatViewController: UIViewController {
             return
         }
 
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+
         let message = text!
 
         let properties = [
             "type": "message",
             "room": self.chatroomId!,
             "created_at": CBLJSON.JSONObjectWithDate(NSDate()),
+            "user": app.syncHelper!.username,
             "message": message
         ]
 
@@ -135,9 +139,10 @@ class ChatViewController: UIViewController {
 
         if let cell = cell,
             let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-            let message = row.value as? String {
+            let values = row.value as? Array<String> {
 
-            cell.textLabel!.text = message
+                cell.textLabel!.text = values[1]
+                cell.detailTextLabel!.text = values[0]
         }
 
         return cell

@@ -18,19 +18,19 @@
       "users": {
         "user1": {
           "password": "user1",
-          "admin_channels": ["*"]
+          "admin_channels": ["users"]
         },
         "user2": {
           "password": "user2",
-          "admin_channels": ["*"]
+          "admin_channels": ["users"]
         },
         "user3": {
           "password": "user3",
-          "admin_channels": ["*"]
+          "admin_channels": ["users"]
         },
         "user4": {
           "password": "user4",
-          "admin_channels": ["*"]
+          "admin_channels": ["users"]
         },
         "GUEST": {
           "disabled": false,
@@ -41,7 +41,27 @@
             "*"
           ]
         }
+      },
+      "sync":
+      `
+      function(doc, oldDoc) {
+        if (doc.type == "user") {
+          channel("users")
+        } else if(doc.type == "chatroom") {
+          var roomId = doc._id;
+          var members = doc.members;
+          var roomRole = "role:" + roomId;
+          var roomChannel = "room-" + roomId;
+          channel(roomChannel);
+          role(members, roomRole);
+          access(roomRole, roomChannel);
+        } else if(doc.type == "message") {
+          var roomId = doc.room;
+          var messageChannel = "room-" + roomId;
+          channel(roomChannel);
+        }
       }
+      `
     }
   }
 }

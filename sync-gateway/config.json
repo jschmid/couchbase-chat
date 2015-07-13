@@ -53,8 +53,7 @@
           var roomRole = "role:role-" + roomId;
           var roomChannel = "room-" + roomId;
           channel(roomChannel);
-          role(roomMembers, roomRole);
-          access(roomRole, roomChannel);
+          access(roomMembers, roomChannel);
         } else if(doc.type == "message") {
           var roomId = doc.room;
           var messageChannel = "room-" + roomId;

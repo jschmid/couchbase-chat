@@ -16,6 +16,15 @@
     "couchbase-chat": {
       "server": "http://192.168.59.103:8091/",
       "users": {
+        "user1": {
+          "password": "user1"
+        },
+        "user2": {
+          "password": "user2"
+        },
+        "user3": {
+          "password": "user3"
+        },
         "GUEST": {
           "disabled": false,
           "all_channels": [

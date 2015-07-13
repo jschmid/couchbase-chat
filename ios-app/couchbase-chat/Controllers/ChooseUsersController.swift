@@ -47,10 +47,9 @@ class ChooseUsersController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("username", forIndexPath: indexPath)
 
         let user = users?.rowAtIndex(UInt(indexPath.row))
-        let userId = user?.value as! String
         let username = user?.key as! String
 
-        let selected = selectedUsers.contains(userId)
+        let selected = selectedUsers.contains(username)
 
         if selected {
             cell.accessoryType = .Checkmark
@@ -66,13 +65,13 @@ class ChooseUsersController: UITableViewController {
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         let user = users?.rowAtIndex(UInt(indexPath.row))
-        let userId = user?.value as! String
+        let username = user?.key as! String
 
-        let oldElement = selectedUsers.remove(userId)
+        let oldElement = selectedUsers.remove(username)
 
         // The user was not removed, add it
         if oldElement == nil {
-            selectedUsers.insert(userId)
+            selectedUsers.insert(username)
         }
 
         tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)

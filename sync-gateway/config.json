@@ -27,6 +27,15 @@
         "user3": {
           "password": "user3",
           "admin_channels": ["*"]
+        },
+        "GUEST": {
+          "disabled": false,
+          "all_channels": [
+            "*"
+          ],
+          "admin_channels": [
+            "*"
+          ]
         }
       }
     }

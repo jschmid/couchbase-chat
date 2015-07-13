@@ -28,6 +28,10 @@
           "password": "user3",
           "admin_channels": ["*"]
         },
+        "user4": {
+          "password": "user4",
+          "admin_channels": ["*"]
+        },
         "GUEST": {
           "disabled": false,
           "all_channels": [

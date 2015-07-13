@@ -9,9 +9,10 @@
 import Foundation
 
 private let kDatabaseName = "couchbase-chat"
+private let kServerDbURL = NSURL(string: "http://192.168.1.41:4984/couchbase-chat/")!
 
 class SyncHelper: NSObject {
-    private let syncURL: NSURL
+    private let syncURL: NSURL = kServerDbURL
     private let username: String
     private let password: String
     private let creds: NSURLCredential
@@ -21,8 +22,7 @@ class SyncHelper: NSObject {
 
     let database: CBLDatabase!
 
-    init(syncURL: NSURL, username: String, password: String) {
-        self.syncURL = syncURL
+    init(username: String, password: String) {
         self.username = username
         self.password = password
         self.creds = NSURLCredential(user: username, password: password, persistence: .Permanent)
@@ -52,8 +52,12 @@ class SyncHelper: NSObject {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "replicationProgress:", name: kCBLReplicationChangeNotification, object: replication)
     }
 
-    private var _syncError: NSError?
+    private var lastSyncError: NSError?
     func replicationProgress(n: NSNotification) {
+        print("Pull status \(pull.status.rawValue)")
+        print("Pull error \(pull.lastError)")
+        print("Push status \(push.status.rawValue)")
+        print("Push error \(push.lastError)")
         if (pull.status == CBLReplicationStatus.Active || push.status == CBLReplicationStatus.Active) {
             // Sync is active -- aggregate the progress of both replications and compute a fraction:
             let completed = pull.completedChangesCount + push.completedChangesCount
@@ -63,8 +67,8 @@ class SyncHelper: NSObject {
 
         // Check for any change in error status and display new errors:
         let error = pull.lastError ?? push.lastError
-        if (error != _syncError) {
-            _syncError = error
+        if (error != lastSyncError) {
+            lastSyncError = error
             if error != nil {
                 print("Error syncing", forError: error)
             }

@@ -8,8 +8,6 @@
 
 import UIKit
 
-private let kServerDbURL = NSURL(string: "http://192.168.1.41:4984/couchbase-chat/")!
-
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
 
@@ -18,15 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var syncHelper: SyncHelper?
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-
-        syncHelper = SyncHelper(syncURL: kServerDbURL, username: "user1", password: "user1")
-        syncHelper?.start()
-
         // Override point for customization after application launch.
-        let splitViewController = self.window!.rootViewController as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-        splitViewController.delegate = self
+//        let splitViewController = self.window!.rootViewController as! UISplitViewController
+//        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+//        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+//        splitViewController.delegate = self
         return true
     }
 

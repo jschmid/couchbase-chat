@@ -31,15 +31,6 @@
         "user4": {
           "password": "user4",
           "admin_channels": ["users"]
-        },
-        "GUEST": {
-          "disabled": false,
-          "all_channels": [
-            "*"
-          ],
-          "admin_channels": [
-            "*"
-          ]
         }
       },
       "sync":

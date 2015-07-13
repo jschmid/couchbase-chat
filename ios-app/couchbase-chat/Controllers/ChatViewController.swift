@@ -33,15 +33,22 @@ class ChatViewController: UIViewController {
         }()
 
 
-    var chatroom: String? {
+    var chatroomId: String? {
         didSet {
+            if let chatroomId = self.chatroomId {
+                chatroomDoc = database.documentWithID(chatroomId)
+            }
             self.configureView()
         }
     }
+    var chatroomDoc: CBLDocument?
 
     func configureView() {
-        if let chatroom = self.chatroom {
-            self.title = chatroom
+        if let roomId = self.chatroomId,
+            let chatroom = self.chatroomDoc {
+
+            let roomname = chatroom["name"] as? String
+            self.title = roomname
 
             if let live = liveQuery {
                 live.removeObserver(self, forKeyPath: "rows")
@@ -49,8 +56,8 @@ class ChatViewController: UIViewController {
 
             let view = database.viewNamed("messages")
             let query = view.createQuery()
-            query.startKey = [self.chatroom!]
-            query.endKey = [self.chatroom!, [:]]
+            query.startKey = [roomId]
+            query.endKey = [roomId, [:]]
             let live = query.asLiveQuery()
 
             live.addObserver(self, forKeyPath: "rows", options: [], context: nil)
@@ -92,7 +99,7 @@ class ChatViewController: UIViewController {
 
         let properties = [
             "type": "message",
-            "room": self.chatroom!,
+            "room": self.chatroomId!,
             "created_at": CBLJSON.JSONObjectWithDate(NSDate()),
             "message": message
         ];

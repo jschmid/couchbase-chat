@@ -18,10 +18,10 @@ class MasterViewController: UITableViewController {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
 
-        db.viewNamed("chatrooms").setMapBlock("1") { (doc, emit) in
+        db.viewNamed("chatrooms").setMapBlock("2") { (doc, emit) in
             if let type = doc["type"] as? String where type == "chatroom" {
-                if let name = doc["name"] as? String {
-                    emit(name, nil)
+                if let name = doc["name"] as? String, let docId = doc["_id"] {
+                    emit(name, docId)
                 }
             }
         }
@@ -87,8 +87,8 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
                 if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-                    let name = row.key as? String {
-                        controller.chatroom = name
+                    let roomId = row.value as? String {
+                        controller.chatroomId = roomId
                 }
             }
         }

@@ -39,3 +39,11 @@ A message in a chatroom
 * created_at: date
 * user: username
 * message: text message
+
+## Sync gateway config
+
+The sync gateway [config.json](sync-gateway.json) file describes the config used for the app.
+
+All users are in the `users` channel so that they all know about the other users when creating a new chat room.
+
+When a user creates a new chat room, he selects the users he wants in the room. The sync function puts the `chatroom` and `message` documents in the same channel. Only the users selected when creating the room are added to the channel.

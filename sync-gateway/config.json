@@ -17,13 +17,16 @@
       "server": "http://192.168.59.103:8091/",
       "users": {
         "user1": {
-          "password": "user1"
+          "password": "user1",
+          "admin_channels": ["*"]
         },
         "user2": {
-          "password": "user2"
+          "password": "user2",
+          "admin_channels": ["*"]
         },
         "user3": {
-          "password": "user3"
+          "password": "user3",
+          "admin_channels": ["*"]
         }
       }
     }

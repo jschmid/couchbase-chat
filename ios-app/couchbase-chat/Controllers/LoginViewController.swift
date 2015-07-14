@@ -48,8 +48,6 @@ class LoginViewController: UIViewController {
         dispatch_async(dispatch_get_main_queue()) {
             let ctrl = self.storyboard?.instantiateViewControllerWithIdentifier("splitViewController")
             app.window!.rootViewController = ctrl
-            app.isLoggedIn()
-
         }
     }
 

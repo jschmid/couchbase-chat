@@ -38,6 +38,11 @@ class MasterViewController: UITableViewController {
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? ChatViewController
+
+            let navigationController = controllers.last as! UINavigationController
+            navigationController.topViewController!.navigationItem.leftBarButtonItem = split.displayModeButtonItem()
+            let app = UIApplication.sharedApplication().delegate as! AppDelegate
+            split.delegate = app
         }
 
         // Init datasource

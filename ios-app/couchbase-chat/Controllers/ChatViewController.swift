@@ -80,6 +80,8 @@ class ChatViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     deinit {
@@ -182,6 +184,24 @@ class ChatViewController: UIViewController {
         if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)) {
             editingMessage = row.document
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        }
+    }
+
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+
+            if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)) {
+                let doc = row.document
+
+                do {
+                    try doc?.deleteDocument()
+                } catch {
+                    print("Could not delete")
+                }
+            }
+
+        } else if editingStyle == .Insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
 

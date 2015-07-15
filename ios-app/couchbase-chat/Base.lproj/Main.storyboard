@@ -182,15 +182,10 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="u91-KB-LZD">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="iiU-Mb-lWI">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6Qb-vv-UGk">
-                                <rect key="frame" x="447" y="7" width="133" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <segue destination="nwb-Rg-22Z" kind="show" identifier="chooseName" id="nFM-rd-Yin"/>
-                                </connections>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="Item" id="ZEt-dY-vis">
+                            <connections>
+                                <segue destination="nwb-Rg-22Z" kind="show" identifier="chooseName" id="NzN-ea-rdO"/>
+                            </connections>
                         </barButtonItem>
                     </navigationItem>
                 </tableViewController>

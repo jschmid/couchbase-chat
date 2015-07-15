@@ -9,6 +9,14 @@
 /* Begin PBXBuildFile section */
 		DD3C70001B567A20001CB100 /* libCBLForestDBStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */; };
 		DD3C70021B567AE4001CB100 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C70011B567AE4001CB100 /* libc++.1.dylib */; };
+		DD3C70061B568C30001CB100 /* ChatModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70041B568C30001CB100 /* ChatModel.xcdatamodeld */; };
+		DD3C70121B56937F001CB100 /* CBLIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70111B56937F001CB100 /* CBLIncrementalStore.m */; };
+		DD3C701D1B5699C8001CB100 /* Chatroom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70171B5699C8001CB100 /* Chatroom+CoreDataProperties.swift */; };
+		DD3C701E1B5699C8001CB100 /* Chatroom.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70181B5699C8001CB100 /* Chatroom.swift */; };
+		DD3C701F1B5699C8001CB100 /* Message+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70191B5699C8001CB100 /* Message+CoreDataProperties.swift */; };
+		DD3C70201B5699C8001CB100 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C701A1B5699C8001CB100 /* Message.swift */; };
+		DD3C70211B5699C8001CB100 /* User+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C701B1B5699C8001CB100 /* User+CoreDataProperties.swift */; };
+		DD3C70221B5699C8001CB100 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C701C1B5699C8001CB100 /* User.swift */; };
 		DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E211B4FB0D6009D68FF /* AppDelegate.swift */; };
 		DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E231B4FB0D6009D68FF /* MasterViewController.swift */; };
 		DD609E291B4FB0D6009D68FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD609E271B4FB0D6009D68FF /* Main.storyboard */; };
@@ -29,6 +37,15 @@
 /* Begin PBXFileReference section */
 		DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCBLForestDBStorage.a; path = Frameworks/libCBLForestDBStorage.a; sourceTree = "<group>"; };
 		DD3C70011B567AE4001CB100 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "../../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libc++.1.dylib"; sourceTree = "<group>"; };
+		DD3C70051B568C30001CB100 /* ChatModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatModel.xcdatamodel; sourceTree = "<group>"; };
+		DD3C70101B56937F001CB100 /* CBLIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBLIncrementalStore.h; path = Vendor/CBLIncrementalStore.h; sourceTree = "<group>"; };
+		DD3C70111B56937F001CB100 /* CBLIncrementalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBLIncrementalStore.m; path = Vendor/CBLIncrementalStore.m; sourceTree = "<group>"; };
+		DD3C70171B5699C8001CB100 /* Chatroom+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Chatroom+CoreDataProperties.swift"; path = "Model/Chatroom+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DD3C70181B5699C8001CB100 /* Chatroom.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Chatroom.swift; path = Model/Chatroom.swift; sourceTree = "<group>"; };
+		DD3C70191B5699C8001CB100 /* Message+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Message+CoreDataProperties.swift"; path = "Model/Message+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DD3C701A1B5699C8001CB100 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Message.swift; path = Model/Message.swift; sourceTree = "<group>"; };
+		DD3C701B1B5699C8001CB100 /* User+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "User+CoreDataProperties.swift"; path = "Model/User+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		DD3C701C1B5699C8001CB100 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Model/User.swift; sourceTree = "<group>"; };
 		DD609E1E1B4FB0D6009D68FF /* couchbase-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "couchbase-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD609E211B4FB0D6009D68FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD609E231B4FB0D6009D68FF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MasterViewController.swift; path = Controllers/MasterViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +83,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD3C70031B568C0F001CB100 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DD3C70041B568C30001CB100 /* ChatModel.xcdatamodeld */,
+				DD3C70171B5699C8001CB100 /* Chatroom+CoreDataProperties.swift */,
+				DD3C70181B5699C8001CB100 /* Chatroom.swift */,
+				DD3C70191B5699C8001CB100 /* Message+CoreDataProperties.swift */,
+				DD3C701A1B5699C8001CB100 /* Message.swift */,
+				DD3C701B1B5699C8001CB100 /* User+CoreDataProperties.swift */,
+				DD3C701C1B5699C8001CB100 /* User.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DD3C700F1B569358001CB100 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				DD3C70101B56937F001CB100 /* CBLIncrementalStore.h */,
+				DD3C70111B56937F001CB100 /* CBLIncrementalStore.m */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
 		DD609E151B4FB0D6009D68FF = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +129,8 @@
 				DD609E211B4FB0D6009D68FF /* AppDelegate.swift */,
 				DDC028731B53AE00000419A2 /* Helpers */,
 				DDC028741B53AE0B000419A2 /* Controllers */,
+				DD3C70031B568C0F001CB100 /* Model */,
+				DD3C700F1B569358001CB100 /* Vendor */,
 				DD609E271B4FB0D6009D68FF /* Main.storyboard */,
 				DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */,
 				DD609E2C1B4FB0D6009D68FF /* LaunchScreen.storyboard */,
@@ -205,12 +247,20 @@
 			files = (
 				DDCF91181B53BB2900C1DBAF /* LoginViewController.swift in Sources */,
 				DDDE97E21B53D90900AFA829 /* ChooseUsersController.swift in Sources */,
+				DD3C701E1B5699C8001CB100 /* Chatroom.swift in Sources */,
 				DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */,
+				DD3C70221B5699C8001CB100 /* User.swift in Sources */,
 				DDDE97E41B53D91D00AFA829 /* ChooseNameController.swift in Sources */,
 				DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */,
+				DD3C701F1B5699C8001CB100 /* Message+CoreDataProperties.swift in Sources */,
 				DDC028761B53AE95000419A2 /* SyncHelper.swift in Sources */,
+				DD3C70211B5699C8001CB100 /* User+CoreDataProperties.swift in Sources */,
+				DD3C70121B56937F001CB100 /* CBLIncrementalStore.m in Sources */,
 				DDEF39C61B4FF064007EE7C2 /* Utilities.swift in Sources */,
+				DD3C701D1B5699C8001CB100 /* Chatroom+CoreDataProperties.swift in Sources */,
+				DD3C70061B568C30001CB100 /* ChatModel.xcdatamodeld in Sources */,
 				DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */,
+				DD3C70201B5699C8001CB100 /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,6 +428,20 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		DD3C70041B568C30001CB100 /* ChatModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				DD3C70051B568C30001CB100 /* ChatModel.xcdatamodel */,
+			);
+			currentVersion = DD3C70051B568C30001CB100 /* ChatModel.xcdatamodel */;
+			name = ChatModel.xcdatamodeld;
+			path = Model/ChatModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = DD609E161B4FB0D6009D68FF /* Project object */;
 }

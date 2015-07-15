@@ -31,13 +31,23 @@
         "user4": {
           "password": "user4",
           "admin_channels": ["users"]
+        },
+        "admin": {
+          "password": "admin",
+          "admin_roles": ["admin"]
+        }
+      },
+      "roles": {
+        "admin": {
+          "admin_channels": ["*"]
         }
       },
       "sync":
       `
       function(doc, oldDoc) {
         if (doc.type == "user") {
-          channel("users")
+          requireRole("admin");
+          channel("users");
         } else if(doc.type == "chatroom") {
           var roomId = doc._id;
           var roomMembers = doc.members;

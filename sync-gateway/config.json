@@ -40,7 +40,12 @@
         // This is because deleted documents do not have any properties anymore.
         // We have to use the oldDoc values.
         if(doc._deleted) {
-          requireUser(oldDoc.user)
+          if(oldDoc.type == "chatroom" || oldDoc.type == "message") {
+            requireUser(oldDoc.user)
+          } else if (oldDoc.type == "user") {
+            throw ({forbidden : "Cannot delete a user!"})
+          }
+
           return;
         }
 

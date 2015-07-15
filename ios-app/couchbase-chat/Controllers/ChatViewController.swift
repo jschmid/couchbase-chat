@@ -51,6 +51,7 @@ class ChatViewController: UIViewController {
         didSet {
             if let doc = editingMessage {
                 self.textField.text = doc["message"] as? String
+                self.textField.selectAll(nil)
                 self.textField.becomeFirstResponder()
             } else {
                 self.textField.text = ""

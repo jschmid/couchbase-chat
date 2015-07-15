@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD3C70001B567A20001CB100 /* libCBLForestDBStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */; };
+		DD3C70021B567AE4001CB100 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C70011B567AE4001CB100 /* libc++.1.dylib */; };
 		DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E211B4FB0D6009D68FF /* AppDelegate.swift */; };
 		DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E231B4FB0D6009D68FF /* MasterViewController.swift */; };
 		DD609E291B4FB0D6009D68FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD609E271B4FB0D6009D68FF /* Main.storyboard */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCBLForestDBStorage.a; path = Frameworks/libCBLForestDBStorage.a; sourceTree = "<group>"; };
+		DD3C70011B567AE4001CB100 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "../../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libc++.1.dylib"; sourceTree = "<group>"; };
 		DD609E1E1B4FB0D6009D68FF /* couchbase-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "couchbase-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD609E211B4FB0D6009D68FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD609E231B4FB0D6009D68FF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MasterViewController.swift; path = Controllers/MasterViewController.swift; sourceTree = "<group>"; };
@@ -50,6 +54,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD3C70021B567AE4001CB100 /* libc++.1.dylib in Frameworks */,
+				DD3C70001B567A20001CB100 /* libCBLForestDBStorage.a in Frameworks */,
 				DDEF39C41B4FEB4C007EE7C2 /* libz.1.dylib in Frameworks */,
 				DDEF39BE1B4FEA7D007EE7C2 /* libsqlite3.dylib in Frameworks */,
 				DDEF39BC1B4FE9EF007EE7C2 /* SystemConfiguration.framework in Frameworks */,
@@ -116,6 +122,8 @@
 		DDC39AD91B4FE7FA0065CC34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				DD3C70011B567AE4001CB100 /* libc++.1.dylib */,
+				DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */,
 				DDEF39C31B4FEB4C007EE7C2 /* libz.1.dylib */,
 				DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */,
 				DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */,

@@ -28,6 +28,10 @@ class SyncHelper: NSObject {
         self.creds = NSURLCredential(user: username, password: password, persistence: .Permanent)
 
         do {
+            let prefs = NSUserDefaults.standardUserDefaults()
+            prefs.setObject("ForestDB", forKey: "CBLStorageType")
+            prefs.synchronize()
+
             let manager = CBLManager.sharedInstance()
             try self.database = manager.databaseNamed(kDatabaseName)
         } catch {

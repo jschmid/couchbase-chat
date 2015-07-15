@@ -33,6 +33,11 @@ class ChatViewController: UIViewController {
         return db
         }()
 
+    lazy var username: String = {
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        return app.syncHelper!.username
+    }()
+
 
     var chatroomId: String? {
         didSet {
@@ -123,13 +128,11 @@ class ChatViewController: UIViewController {
     }
 
     func sendNewMessage(message: String) {
-        let app = UIApplication.sharedApplication().delegate as! AppDelegate
-
         let properties = [
             "type": "message",
             "room": self.chatroomId!,
             "created_at": CBLJSON.JSONObjectWithDate(NSDate()),
-            "user": app.syncHelper!.username,
+            "user": username,
             "message": message
         ]
 

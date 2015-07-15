@@ -39,6 +39,9 @@ class ChatViewController: UIViewController {
             if let chatroomId = self.chatroomId {
                 chatroomDoc = database.documentWithID(chatroomId)
             }
+            if editingMessage != nil {
+                editingMessage = nil
+            }
             self.configureView()
         }
     }

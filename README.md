@@ -8,8 +8,6 @@ The app is a simple chat app with different chatrooms. A user can create a room 
 
 Each couchbase document has a `type` property defining its model.
 
-Default values are available in [data.json](sync-gateway/data.json).
-
 ### user
 
 A user in the system. This allows users to select who has access to chat rooms.
@@ -27,6 +25,7 @@ A chatroom.
 #### Properties
 
 * name
+* user: the owner of the chat
 * members: array of usernames that have access to the room
 
 ### message
@@ -47,3 +46,10 @@ The sync gateway [config.json](sync-gateway.json) file describes the config used
 All users are in the `users` channel so that they all know about the other users when creating a new chat room.
 
 When a user creates a new chat room, he selects the users he wants in the room. The sync function puts the `chatroom` and `message` documents in the same channel. Only the users selected when creating the room are added to the channel.
+
+Validation is used to prevent users to delete documents (chatrooms, messages) that they do not own. Only the *admin* user can create user documents. 
+
+## Default data
+
+Default values are available in [data.json](sync-gateway/data.json).
+The config does not allow guest access. In order to fill in default data, execute the `bootstrap_data.sh` file to create the data as the admin user.

@@ -186,10 +186,18 @@ class ChatViewController: UIViewController {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)) {
-            editingMessage = row.document
-            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+        if isRowFromCurrentUser(indexPath) {
+            if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)) {
+                editingMessage = row.document
+                tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            }
+        } else {
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
+    }
+
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return isRowFromCurrentUser(indexPath)
     }
 
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
@@ -207,6 +215,18 @@ class ChatViewController: UIViewController {
 
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        }
+    }
+
+    // MARK - Helpers
+
+    func isRowFromCurrentUser(indexPath: NSIndexPath) -> Bool {
+        if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
+            let rowValue = row.value as? [String] {
+                let rowUsername = rowValue[0]
+                return rowUsername == username
+        } else {
+            return false
         }
     }
 

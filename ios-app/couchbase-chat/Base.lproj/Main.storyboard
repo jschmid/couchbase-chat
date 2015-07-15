@@ -34,7 +34,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ami-5q-YIT">
-                                <rect key="frame" x="0.0" y="233" width="600" height="134"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="134"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Username" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pTb-2C-GJD">
                                         <rect key="frame" x="20" y="20" width="560" height="30"/>
@@ -72,7 +72,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ami-5q-YIT" firstAttribute="leading" secondItem="c7g-ko-d1F" secondAttribute="leading" id="10P-NZ-dMw"/>
-                            <constraint firstItem="ami-5q-YIT" firstAttribute="centerY" secondItem="c7g-ko-d1F" secondAttribute="centerY" id="1Tm-Sa-FzS"/>
+                            <constraint firstItem="ami-5q-YIT" firstAttribute="top" secondItem="sDP-rq-Pbz" secondAttribute="bottom" id="VxZ-ug-2sf"/>
                             <constraint firstAttribute="trailing" secondItem="ami-5q-YIT" secondAttribute="trailing" id="XcU-Dl-XUi"/>
                             <constraint firstItem="ami-5q-YIT" firstAttribute="centerX" secondItem="c7g-ko-d1F" secondAttribute="centerX" id="olR-AW-FDn"/>
                         </constraints>

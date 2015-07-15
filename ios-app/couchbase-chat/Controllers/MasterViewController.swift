@@ -12,20 +12,9 @@ class MasterViewController: UITableViewController {
 
     var detailViewController: ChatViewController? = nil
 
-    private var liveQuery: CBLLiveQuery?
-
     lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
-
-        db.viewNamed("chatrooms").setMapBlock("2") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "chatroom" {
-                if let name = doc["name"] as? String, let docId = doc["_id"] {
-                    emit(name, docId)
-                }
-            }
-        }
-
         return db
     }()
 
@@ -45,24 +34,16 @@ class MasterViewController: UITableViewController {
             split.delegate = app
         }
 
-        // Init datasource
-
-        let query = database.viewNamed("chatrooms").createQuery()
-        let live = query.asLiveQuery()
-        live.descending = true
-
-        live.addObserver(self, forKeyPath: "rows", options: [], context: nil)
-
-        liveQuery = live
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Error fetching")
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
-    }
-
-    deinit {
-        liveQuery?.removeObserver(self, forKeyPath: "rows")
     }
 
     func insertNewObject(sender: AnyObject) {
@@ -89,9 +70,8 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
-                if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-                    let roomId = row.value as? String {
-                        controller.chatroomId = roomId
+                if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
+//                    controller.chatroomId = chatroom
                 }
             }
         }
@@ -100,14 +80,18 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return liveQuery?.rows == nil ? 0 : 1
+        if let sections = fetchedResultsController.sections {
+            return sections.count
+        }
+
+        return 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection sectionIdx: Int) -> Int {
 
-        if let rows = liveQuery?.rows {
-            let count = rows.count
-            return Int(count)
+        if let sections = fetchedResultsController.sections {
+            let section = sections[sectionIdx]
+            return section.numberOfObjects
         }
 
         return 0
@@ -116,9 +100,8 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
-        if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-            let name = row.key as? String {
-                cell.textLabel?.text = name
+        if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
+            cell.textLabel?.text = chatroom.name
         }
 
         return cell
@@ -132,20 +115,58 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
 
-            if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)) {
-                let doc = row.document
-
-                do {
-                    try doc?.deleteDocument()
-                } catch {
-                    print("Could not delete")
-                }
+            if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
+//
             }
 
         } else if editingStyle == .Insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
+
+    // MARK: - Core Data
+
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+
+        let fetchRequest = NSFetchRequest(entityName: "Chatroom")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let syncHelper = app.syncHelper!
+
+        let ctrl = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: syncHelper.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+
+        return ctrl
+
+        }()
+
+//    - (NSFetchedResultsController *)fetchedResultsController {
+//    // Set up the fetched results controller if needed.
+//    if (fetchedResultsController == nil) {
+//    // Create the fetch request for the entity.
+//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+//    // Edit the entity name as appropriate.
+//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:managedObjectContext];
+//    [fetchRequest setEntity:entity];
+//
+//    // Edit the sort key as appropriate.
+//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
+//    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+//
+//    [fetchRequest setSortDescriptors:sortDescriptors];
+//
+//    // Edit the section name key path and cache name if appropriate.
+//    // nil for section name key path means "no sections".
+//    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+//    aFetchedResultsController.delegate = self;
+//    self.fetchedResultsController = aFetchedResultsController;
+//
+//    }
+//
+//    return fetchedResultsController;
+//    }
 
 
 }

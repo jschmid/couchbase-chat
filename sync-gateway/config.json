@@ -50,12 +50,12 @@
         // We have to use the oldDoc values.
         if(doc._deleted) {
           if(oldDoc.type == "chatroom") {
-            requireUser(oldDoc.user)
+            requireUser(oldDoc.user);
             var roomId = oldDoc._id;
             var roomChannel = "room-" + roomId;
             channel(roomChannel);
           } else if (oldDoc.type == "message") {
-            requireUser(oldDoc.user)
+            requireUser(oldDoc.user);
             var roomId = oldDoc.room;
             var messageChannel = "room-" + roomId;
             channel(messageChannel);
@@ -81,7 +81,7 @@
 
           // A user can only update its own messages
           if(oldDoc) {
-            requireUser(oldDoc.user)
+            requireUser(oldDoc.user);
           }
 
           var roomId = doc.room;

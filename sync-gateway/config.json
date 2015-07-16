@@ -86,7 +86,9 @@
 
           var roomId = doc.room;
           var messageChannel = "room-" + roomId;
+
           channel(messageChannel);
+          requireAccess(messageChannel);
         }
       }
       `

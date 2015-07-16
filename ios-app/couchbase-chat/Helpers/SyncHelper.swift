@@ -28,9 +28,6 @@ class SyncHelper: NSObject {
         self.username = username
         self.password = password
         self.creds = NSURLCredential(user: username, password: password, persistence: .Permanent)
-//        let prefs = NSUserDefaults.standardUserDefaults()
-//        prefs.setObject("ForestDB", forKey: "CBLStorageType")
-//        prefs.synchronize()
     }
 
     func start() {

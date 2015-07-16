@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DD3C70001B567A20001CB100 /* libCBLForestDBStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */; };
-		DD3C70021B567AE4001CB100 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C70011B567AE4001CB100 /* libc++.1.dylib */; };
 		DD3C70061B568C30001CB100 /* ChatModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70041B568C30001CB100 /* ChatModel.xcdatamodeld */; };
 		DD3C70121B56937F001CB100 /* CBLIncrementalStore.m in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70111B56937F001CB100 /* CBLIncrementalStore.m */; };
 		DD3C701D1B5699C8001CB100 /* Chatroom+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD3C70171B5699C8001CB100 /* Chatroom+CoreDataProperties.swift */; };
@@ -35,8 +33,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCBLForestDBStorage.a; path = Frameworks/libCBLForestDBStorage.a; sourceTree = "<group>"; };
-		DD3C70011B567AE4001CB100 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "../../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libc++.1.dylib"; sourceTree = "<group>"; };
 		DD3C70051B568C30001CB100 /* ChatModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ChatModel.xcdatamodel; sourceTree = "<group>"; };
 		DD3C70101B56937F001CB100 /* CBLIncrementalStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBLIncrementalStore.h; path = Vendor/CBLIncrementalStore.h; sourceTree = "<group>"; };
 		DD3C70111B56937F001CB100 /* CBLIncrementalStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBLIncrementalStore.m; path = Vendor/CBLIncrementalStore.m; sourceTree = "<group>"; };
@@ -71,8 +67,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD3C70021B567AE4001CB100 /* libc++.1.dylib in Frameworks */,
-				DD3C70001B567A20001CB100 /* libCBLForestDBStorage.a in Frameworks */,
 				DDEF39C41B4FEB4C007EE7C2 /* libz.1.dylib in Frameworks */,
 				DDEF39BE1B4FEA7D007EE7C2 /* libsqlite3.dylib in Frameworks */,
 				DDEF39BC1B4FE9EF007EE7C2 /* SystemConfiguration.framework in Frameworks */,
@@ -164,8 +158,6 @@
 		DDC39AD91B4FE7FA0065CC34 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DD3C70011B567AE4001CB100 /* libc++.1.dylib */,
-				DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */,
 				DDEF39C31B4FEB4C007EE7C2 /* libz.1.dylib */,
 				DDEF39BD1B4FEA7D007EE7C2 /* libsqlite3.dylib */,
 				DDEF39BB1B4FE9EF007EE7C2 /* SystemConfiguration.framework */,

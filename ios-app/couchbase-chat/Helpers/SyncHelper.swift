@@ -72,6 +72,11 @@ class SyncHelper: NSObject {
     lazy var managedObjectContext: NSManagedObjectContext = {
         let ctx = NSManagedObjectContext()
         ctx.persistentStoreCoordinator = self.persistentStoreCoordinator
+
+        if let store = self.persistentStoreCoordinator.persistentStores.first as? CBLIncrementalStore {
+            store.addObservingManagedObjectContext(ctx)
+        }
+
         return ctx
         }()
 

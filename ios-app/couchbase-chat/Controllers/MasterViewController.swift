@@ -71,7 +71,17 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
                 if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
-//                    controller.chatroomId = chatroom
+                    let objId = chatroom.objectID
+                    let url = objId.URIRepresentation()
+                    let last = url.lastPathComponent
+
+                    if let roomId = last {
+                        // Example CBLIncrementalStore ID: pCBL-x6fcpzeUc3v8IoL_7CGR4J
+                        let index = advance(roomId.startIndex, 4)
+                        let CBLID = roomId.substringFromIndex(index)
+
+                        controller.chatroomId = CBLID
+                    }
                 }
             }
         }

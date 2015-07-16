@@ -45,7 +45,7 @@ class ChooseNameController: UIViewController {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
 
         let properties: [String: AnyObject] = [
-            "type": "chatroom",
+            "type": "Chatroom",
             "name": roomname,
             "user": app.syncHelper!.username,
             "members": members

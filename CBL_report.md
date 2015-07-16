@@ -52,6 +52,7 @@ The four main parts are users, roles, channels and of course documents.
   * Once *one* document gives access to a channel, the user/role has access to every document in the channel
 * The sync function is executed for each new revision of a document. The channels can therefore change for every new revision
 * Once a document is deleted, the access rights it has given to users/roles are revoked. (See [this thread](https://groups.google.com/d/msg/mobile-couchbase/scBfRI7eeIA/JWd_K4QLyDUJ)). If multiple documents give access to a channel, the rights are not revoked.
+* When the sync function validates a newly deleted document, it has to take care that all the properties have been removed. The function should treat deletions specially. 
 
 ## Do not access Couchbase directly
 

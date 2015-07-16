@@ -126,7 +126,16 @@ class MasterViewController: UITableViewController {
         if editingStyle == .Delete {
 
             if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
-//
+                let app = UIApplication.sharedApplication().delegate as! AppDelegate
+                let ctx = app.syncHelper!.managedObjectContext
+
+                ctx.deleteObject(chatroom)
+
+                do {
+                    try ctx.save()
+                } catch {
+                    print("Could not delete chatroom")
+                }
             }
 
         } else if editingStyle == .Insert {

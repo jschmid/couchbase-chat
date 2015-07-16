@@ -18,10 +18,12 @@ class MasterViewController: UITableViewController {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
 
-        db.viewNamed("chatrooms").setMapBlock("2") { (doc, emit) in
+        db.viewNamed("chatrooms").setMapBlock("3") { (doc, emit) in
             if let type = doc["type"] as? String where type == "chatroom" {
-                if let name = doc["name"] as? String, let docId = doc["_id"] {
-                    emit(name, docId)
+                if let name = doc["name"] as? String,
+                    let docId = doc["_id"],
+                    let owner = doc["user"] as? String {
+                    emit(name, [docId, owner])
                 }
             }
         }
@@ -90,7 +92,8 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
                 if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-                    let roomId = row.value as? String {
+                    let values = row.value as? [String] {
+                        let roomId = values[0]
                         controller.chatroomId = roomId
                 }
             }
@@ -117,8 +120,11 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-            let name = row.key as? String {
+            let name = row.key as? String,
+            let values = row.value as? [String] {
+                let owner = values[1]
                 cell.textLabel?.text = name
+                cell.detailTextLabel?.text = owner
         }
 
         return cell

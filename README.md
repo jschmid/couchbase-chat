@@ -1,6 +1,6 @@
 # Couchbase chat
 
-A test app trying the capabilities of [Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server), the [Sync Gateway](http://developer.couchbase.com/mobile/get-started/what-is-sync-gateway/index.html) and [Couchbase Lite](http://developer.couchbase.com/mobile/get-started/couchbase-lite-overview/index.html).
+A test app trying the capabilities of [Couchbase Server](http://www.couchbase.com/nosql-databases/couchbase-server), the [Sync Gateway](http://developer.couchbase.com/mobile/get-started/what-is-sync-gateway/index.html) and [Couchbase Lite](http://developer.couchbase.com/mobile/get-started/couchbase-lite-overview/index.html). I write [my observations](CBL_report.md) on a file.
 
 The app is a simple chat app with different chatrooms. A user can create a room and choose which user is included. Using roles and channels, each user receives only what he needs.
 

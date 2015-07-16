@@ -141,12 +141,16 @@ class ChatViewController: UIViewController {
     }
 
     func sendEditedMessage(doc: CBLDocument, message: String) {
-        if var newProps = doc.properties as? [String: AnyObject] {
-            newProps["message"] = message
-            try! doc.putProperties(newProps)
-
+        do {
+            try doc.update { rev in
+                rev["message"] = message
+                return true
+            }
             editingMessage = nil
+        } catch {
+            print("Could not update message")
         }
+
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

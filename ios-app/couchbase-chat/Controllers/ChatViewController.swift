@@ -20,7 +20,7 @@ class ChatViewController: UIViewController {
         let db = app.syncHelper!.database
 
         db.viewNamed("messages").setMapBlock("3") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "message" {
+            if let type = doc["type"] as? String where type == "Message" {
                 if let room = doc["room"] as? String,
                     let date = doc["created_at"] as? String,
                     let username = doc["user"] as? String,
@@ -129,7 +129,7 @@ class ChatViewController: UIViewController {
 
     func sendNewMessage(message: String) {
         let properties = [
-            "type": "message",
+            "type": "Message",
             "room": self.chatroomId!,
             "created_at": CBLJSON.JSONObjectWithDate(NSDate()),
             "user": username,

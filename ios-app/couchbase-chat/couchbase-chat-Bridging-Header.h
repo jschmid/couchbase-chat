@@ -3,3 +3,5 @@
 //
 
 #import <CouchbaseLite/CouchbaseLite.h>
+
+#import "CBLIncrementalStore.h"

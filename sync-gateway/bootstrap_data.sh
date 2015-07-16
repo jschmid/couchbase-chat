@@ -8,6 +8,6 @@ fi
 
 host=http://localhost:4984/couchbase-chat/
 
-http --session=chat-admin "$host"_session name=admin password=admin
+http --session=chat-admin "$host"_session name=Admin password=admin
 
 http --session=chat-admin POST "$host"_bulk_docs < data.json

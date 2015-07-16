@@ -8,24 +8,13 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var detailViewController: ChatViewController? = nil
-
-    private var liveQuery: CBLLiveQuery?
 
     lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
-
-        db.viewNamed("chatrooms").setMapBlock("2") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "chatroom" {
-                if let name = doc["name"] as? String, let docId = doc["_id"] {
-                    emit(name, docId)
-                }
-            }
-        }
-
         return db
     }()
 
@@ -45,24 +34,16 @@ class MasterViewController: UITableViewController {
             split.delegate = app
         }
 
-        // Init datasource
-
-        let query = database.viewNamed("chatrooms").createQuery()
-        let live = query.asLiveQuery()
-        live.descending = true
-
-        live.addObserver(self, forKeyPath: "rows", options: [], context: nil)
-
-        liveQuery = live
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            print("Error fetching")
+        }
     }
 
     override func viewWillAppear(animated: Bool) {
         self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
-    }
-
-    deinit {
-        liveQuery?.removeObserver(self, forKeyPath: "rows")
     }
 
     func insertNewObject(sender: AnyObject) {
@@ -89,9 +70,18 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
-                if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-                    let roomId = row.value as? String {
-                        controller.chatroomId = roomId
+                if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
+                    let objId = chatroom.objectID
+                    let url = objId.URIRepresentation()
+                    let last = url.lastPathComponent
+
+                    if let roomId = last {
+                        // Example CBLIncrementalStore ID: pCBL-x6fcpzeUc3v8IoL_7CGR4J
+                        let index = advance(roomId.startIndex, 4)
+                        let CBLID = roomId.substringFromIndex(index)
+
+                        controller.chatroomId = CBLID
+                    }
                 }
             }
         }
@@ -100,14 +90,18 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return liveQuery?.rows == nil ? 0 : 1
+        if let sections = fetchedResultsController.sections {
+            return sections.count
+        }
+
+        return 0
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(tableView: UITableView, numberOfRowsInSection sectionIdx: Int) -> Int {
 
-        if let rows = liveQuery?.rows {
-            let count = rows.count
-            return Int(count)
+        if let sections = fetchedResultsController.sections {
+            let section = sections[sectionIdx]
+            return section.numberOfObjects
         }
 
         return 0
@@ -115,12 +109,7 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-
-        if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-            let name = row.key as? String {
-                cell.textLabel?.text = name
-        }
-
+        self.configureCell(cell, atIndexPath: indexPath)
         return cell
     }
 
@@ -132,13 +121,16 @@ class MasterViewController: UITableViewController {
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
 
-            if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)) {
-                let doc = row.document
+            if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
+                let app = UIApplication.sharedApplication().delegate as! AppDelegate
+                let ctx = app.syncHelper!.managedObjectContext
+
+                ctx.deleteObject(chatroom)
 
                 do {
-                    try doc?.deleteDocument()
+                    try ctx.save()
                 } catch {
-                    print("Could not delete")
+                    print("Could not delete chatroom")
                 }
             }
 
@@ -147,6 +139,52 @@ class MasterViewController: UITableViewController {
         }
     }
 
+    // MARK: - Core Data
 
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+
+        let fetchRequest = NSFetchRequest(entityName: "Chatroom")
+        let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+
+        let app = UIApplication.sharedApplication().delegate as! AppDelegate
+        let syncHelper = app.syncHelper!
+
+        let ctrl = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: syncHelper.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        ctrl.delegate = self
+
+        return ctrl
+
+        }()
+
+    func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+        if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
+            cell.textLabel?.text = chatroom.name
+        }
+    }
+
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.beginUpdates()
+    }
+
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Update:
+            let cell = self.tableView.cellForRowAtIndexPath(indexPath!)
+            self.configureCell(cell!, atIndexPath: indexPath!)
+            self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .Move:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        }
+    }
+
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.endUpdates()
+    }
 }
 

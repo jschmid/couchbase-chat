@@ -16,23 +16,23 @@
     "couchbase-chat": {
       "server": "http://192.168.59.103:8091/",
       "users": {
-        "user1": {
+        "User1": {
           "password": "user1",
           "admin_channels": ["users"]
         },
-        "user2": {
+        "User2": {
           "password": "user2",
           "admin_channels": ["users"]
         },
-        "user3": {
+        "User3": {
           "password": "user3",
           "admin_channels": ["users"]
         },
-        "user4": {
+        "User4": {
           "password": "user4",
           "admin_channels": ["users"]
         },
-        "admin": {
+        "Admin": {
           "password": "admin",
           "admin_roles": ["admin"]
         }
@@ -49,25 +49,25 @@
         // This is because deleted documents do not have any properties anymore.
         // We have to use the oldDoc values.
         if(doc._deleted) {
-          if(oldDoc.type == "chatroom" || oldDoc.type == "message") {
+          if(oldDoc.type == "Chatroom" || oldDoc.type == "Message") {
             requireUser(oldDoc.user)
-          } else if (oldDoc.type == "user") {
+          } else if (oldDoc.type == "User") {
             throw ({forbidden : "Cannot delete a user!"})
           }
 
           return;
         }
 
-        if (doc.type == "user") {
+        if (doc.type == "User") {
           requireRole("admin");
           channel("users");
-        } else if(doc.type == "chatroom") {
+        } else if(doc.type == "Chatroom") {
           var roomId = doc._id;
           var roomMembers = doc.members;
           var roomChannel = "room-" + roomId;
           channel(roomChannel);
           access(roomMembers, roomChannel);
-        } else if(doc.type == "message") {
+        } else if(doc.type == "Message") {
           // We cannot check the "_deleted" status here because the "type" property
           // does not exist anymore. The execution would never go here.
 

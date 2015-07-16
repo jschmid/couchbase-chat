@@ -1,20 +1,20 @@
 {
     "docs": [
         {
-            "type": "user",
-            "username": "user1"
+            "type": "User",
+            "username": "User1"
         },
         {
-            "type": "user",
-            "username": "user2"
+            "type": "User",
+            "username": "User2"
         },
         {
-            "type": "user",
-            "username": "user3"
+            "type": "User",
+            "username": "User3"
         },
         {
-            "type": "user",
-            "username": "user4"
+            "type": "User",
+            "username": "User4"
         }
     ]
 }

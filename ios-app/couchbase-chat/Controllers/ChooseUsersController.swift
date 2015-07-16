@@ -18,7 +18,7 @@ class ChooseUsersController: UITableViewController {
         let db = app.syncHelper!.database
 
         db.viewNamed("users").setMapBlock("1") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "user" {
+            if let type = doc["type"] as? String where type == "User" {
                 if let username = doc["username"] as? String, let docId = doc["_id"] {
                     emit(username, docId)
                 }

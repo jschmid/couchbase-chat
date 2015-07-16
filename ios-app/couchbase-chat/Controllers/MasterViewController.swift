@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MasterViewController: UITableViewController {
+class MasterViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     var detailViewController: ChatViewController? = nil
 
@@ -109,11 +109,7 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-
-        if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
-            cell.textLabel?.text = chatroom.name
-        }
-
+        self.configureCell(cell, atIndexPath: indexPath)
         return cell
     }
 
@@ -151,42 +147,44 @@ class MasterViewController: UITableViewController {
         let sortDescriptor = NSSortDescriptor(key: "name", ascending: true)
         fetchRequest.sortDescriptors = [sortDescriptor]
 
-
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let syncHelper = app.syncHelper!
 
         let ctrl = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: syncHelper.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        ctrl.delegate = self
 
         return ctrl
 
         }()
 
-//    - (NSFetchedResultsController *)fetchedResultsController {
-//    // Set up the fetched results controller if needed.
-//    if (fetchedResultsController == nil) {
-//    // Create the fetch request for the entity.
-//    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-//    // Edit the entity name as appropriate.
-//    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Recipe" inManagedObjectContext:managedObjectContext];
-//    [fetchRequest setEntity:entity];
-//
-//    // Edit the sort key as appropriate.
-//    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:YES];
-//    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-//
-//    [fetchRequest setSortDescriptors:sortDescriptors];
-//
-//    // Edit the section name key path and cache name if appropriate.
-//    // nil for section name key path means "no sections".
-//    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
-//    aFetchedResultsController.delegate = self;
-//    self.fetchedResultsController = aFetchedResultsController;
-//
-//    }
-//
-//    return fetchedResultsController;
-//    }
+    func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+        if let chatroom = fetchedResultsController.objectAtIndexPath(indexPath) as? Chatroom {
+            cell.textLabel?.text = chatroom.name
+        }
+    }
 
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.beginUpdates()
+    }
 
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: NSManagedObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        switch type {
+        case .Insert:
+            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Update:
+            let cell = self.tableView.cellForRowAtIndexPath(indexPath!)
+            self.configureCell(cell!, atIndexPath: indexPath!)
+            self.tableView.reloadRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        case .Move:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!], withRowAnimation: .Fade)
+        }
+    }
+
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        self.tableView.endUpdates()
+    }
 }
 

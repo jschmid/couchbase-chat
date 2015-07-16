@@ -49,8 +49,16 @@
         // This is because deleted documents do not have any properties anymore.
         // We have to use the oldDoc values.
         if(doc._deleted) {
-          if(oldDoc.type == "chatroom" || oldDoc.type == "message") {
+          if(oldDoc.type == "chatroom") {
             requireUser(oldDoc.user)
+            var roomId = oldDoc._id;
+            var roomChannel = "room-" + roomId;
+            channel(roomChannel);
+          } else if (oldDoc.type == "message") {
+            requireUser(oldDoc.user)
+            var roomId = oldDoc.room;
+            var messageChannel = "room-" + roomId;
+            channel(messageChannel);
           } else if (oldDoc.type == "user") {
             throw ({forbidden : "Cannot delete a user!"})
           }

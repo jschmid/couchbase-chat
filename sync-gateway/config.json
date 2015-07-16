@@ -52,8 +52,10 @@
           if(oldDoc.type == "chatroom") {
             requireUser(oldDoc.user);
             var roomId = oldDoc._id;
+            var roomMembers = oldDoc.members;
             var roomChannel = "room-" + roomId;
             channel(roomChannel);
+            access(roomMembers, roomChannel);
           } else if (oldDoc.type == "message") {
             requireUser(oldDoc.user);
             var roomId = oldDoc.room;

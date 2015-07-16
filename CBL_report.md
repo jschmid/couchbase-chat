@@ -38,9 +38,20 @@ The regular CBL API is still available. This means we can use the wrapper for ce
 
 ## The sync function
 
-The sync function is also included in the configuration file. Having Javascript code inside a JSON document make it very hard to read and text editors do not understand the syntax.
+The sync function is also included in the configuration file. Having Javascript code inside a JSON document makes it very hard to read and text editors do not understand the syntax. Creating the function on a JS file and pasting it into the configuration file is easier.
 
-Creating the function on a JS file and pasting it into the configuration file is easier.
+The four main parts are users, roles, channels and of course documents.
+
+* Users and roles are created in the configuration file or by the admin using the Admin REST API
+* Users can have zero or multiple roles
+* Roles are added to users by the admin or by the sync function
+* Channels are created on the fly by the sync function
+* There can be any number of channels
+* Documents are assigned to channels by the sync function
+* User and roles are given access to channels by the sync function
+  * Once *one* document gives access to a channel, the user/role has access to every document in the channel
+* The sync function is executed for each new revision of a document. The channels can therefore change for every new revision
+* Once a document is deleted, the access rights it has given to users/roles are revoked. (See [this thread](https://groups.google.com/d/msg/mobile-couchbase/scBfRI7eeIA/JWd_K4QLyDUJ)). If multiple documents give access to a channel, the rights are not revoked.
 
 ## Do not access Couchbase directly
 

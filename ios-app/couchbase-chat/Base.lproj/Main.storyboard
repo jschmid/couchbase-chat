@@ -189,7 +189,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="u91-KB-LZD">
-                        <barButtonItem key="rightBarButtonItem" title="Item" id="ZEt-dY-vis">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="ZEt-dY-vis">
                             <connections>
                                 <segue destination="nwb-Rg-22Z" kind="show" identifier="chooseName" id="NzN-ea-rdO"/>
                             </connections>

@@ -77,6 +77,12 @@
           var roomChannel = "room-" + roomId;
           channel(roomChannel);
           access(roomMembers, roomChannel);
+
+          roomMembers.forEach(function(user) {
+            var roomUser = user + "-rooms";
+            access(user, roomUser);
+          });
+
         } else if(doc.type == "message") {
           // We cannot check the "_deleted" status here because the "type" property
           // does not exist anymore. The execution would never go here.

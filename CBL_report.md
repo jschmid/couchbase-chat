@@ -66,6 +66,13 @@ There are multiple solutions to this:
 
 See [this thread](https://groups.google.com/d/msg/mobile-couchbase/scBfRI7eeIA/JWd_K4QLyDUJ) and [this pull request](https://github.com/jschmid/couchbase-chat/pull/11) talking about a specific problem I had when developing the chat application.
 
+### The sync function must re-run entirely if it has changed
+
+It seems normal that if it changes, the sync function will have to re-run on every document to find the newly added channels or roles.
+
+[This thread](
+https://forums.couchbase.com/t/sync-gateway-initial-shadow-scalability-concerns/3776) shows that this can cause problems with a production setup that already has thousands of documents. Currently, if the function changes, all Sync gateway instances must be brought down. Only one gateway can re-run on all documents. Only then the other instances can be brought up.
+
 ## Do not access Couchbase directly
 
 Do every CRUD operation using the Sync Gateway API, never directly the Couchbase API. If you need special access to a bucket, check [bucket shadowing](https://github.com/couchbase/sync_gateway/wiki/Bucket-Shadowing), although it seems to have been [deprecated](https://gitter.im/couchbase/mobile?at=55a8d8c6ad99869443daa873).

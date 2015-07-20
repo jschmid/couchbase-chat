@@ -27,6 +27,19 @@ class SyncHelper: NSObject {
         self.password = password
         self.creds = NSURLCredential(user: username, password: password, persistence: .Permanent)
 
+        CBLManager.enableLogging("CBLDatabase")
+        CBLManager.enableLogging("CBL_URLProtocol")
+        CBLManager.enableLogging("CBLValidation")
+        CBLManager.enableLogging("CBLRemoteRequest")
+        CBLManager.enableLogging("CBLMultiStreamWriter")
+        CBLManager.enableLogging("ChangeTracker")
+        CBLManager.enableLogging("ChangeTrackerVerbose")
+        CBLManager.enableLogging("JSONSchema")
+        CBLManager.enableLogging("Query")
+        CBLManager.enableLogging("Sync")
+        CBLManager.enableLogging("View")
+        CBLManager.enableLogging("WS")
+
         do {
             let prefs = NSUserDefaults.standardUserDefaults()
             prefs.setObject("ForestDB", forKey: "CBLStorageType")
@@ -34,20 +47,6 @@ class SyncHelper: NSObject {
 
             let manager = CBLManager.sharedInstance()
             try self.database = manager.databaseNamed(kDatabaseName)
-
-            CBLManager.enableLogging("CBLDatabase")
-            CBLManager.enableLogging("CBL_URLProtocol")
-            CBLManager.enableLogging("CBLValidation")
-            CBLManager.enableLogging("CBLRemoteRequest")
-            CBLManager.enableLogging("CBLMultiStreamWriter")
-            CBLManager.enableLogging("ChangeTracker")
-            CBLManager.enableLogging("ChangeTrackerVerbose")
-            CBLManager.enableLogging("JSONSchema")
-            CBLManager.enableLogging("Query")
-            CBLManager.enableLogging("Sync")
-            CBLManager.enableLogging("View")
-            CBLManager.enableLogging("WS")
-
         } catch {
             database = nil
         }

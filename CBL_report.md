@@ -66,6 +66,19 @@ There are multiple solutions to this:
 
 See [this thread](https://groups.google.com/d/msg/mobile-couchbase/scBfRI7eeIA/JWd_K4QLyDUJ) and [this pull request](https://github.com/jschmid/couchbase-chat/pull/11) talking about a specific problem I had when developing the chat application.
 
+### Validate everything on the client side
+
+The sync function allows to put documents into channels, but it also acts as a security mechanism. Calls to `requireUser()`/`requireRole()`/`requireAccess()` are the only way to prevent users to do bad things on the server side.
+
+However, this is only meant to prevent bad behavior from bad guys.
+The client side must check everything on its side. In a perfect world, the sync function should never ever reject a document (apart from hacking attempts of course).
+
+[This thread](https://groups.google.com/d/msg/mobile-couchbase/ijaSWNKWdww/hHIGLY1JKKMJ) shows a design decision made by the Couchbase folks. The client is not notified by the Couchbase Lite SDK when the sync gateway rejects a document. The client is therefore in a weird state where is has the document locally, already tried to sync it to the backend, but does not know that is has been rejected. The client will present the document to the user without knowing it is not and will never be synchronized.
+
+When you put a document on your local database, it might be replicated hours after the user did the action. We cannot prompt the user to update he's document because he might not remember what he had done.
+
+The client apps must be 100% sure that everything it creates will be validated by the sync gateway.
+
 ### The sync function must re-run entirely if it has changed
 
 It seems normal that if it changes, the sync function will have to re-run on every document to find the newly added channels or roles.
@@ -87,7 +100,7 @@ For example, if you use the HTTP authentication:
 * Get notified that there is an error
   * Check the error and notice that this is an authentication error
 
-The best way for me is the have the user authenticate to our own backend. Once the authentication succeeded, the backend sends a somewhat random username/password pair to the application which can use it to replicate with the Sync Gateway. 
+The best way for me is the have the user authenticate to our own backend. Once the authentication succeeded, the backend sends a somewhat random username/password pair to the application which can use it to replicate with the Sync Gateway.
 
 ## Do not access Couchbase directly
 

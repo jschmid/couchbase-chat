@@ -73,6 +73,22 @@ It seems normal that if it changes, the sync function will have to re-run on eve
 [This thread](
 https://forums.couchbase.com/t/sync-gateway-initial-shadow-scalability-concerns/3776) shows that this can cause problems with a production setup that already has thousands of documents. Currently, if the function changes, all Sync gateway instances must be brought down. Only one gateway can re-run on all documents. Only then the other instances can be brought up.
 
+## Couchbase Lite does not have a "real" authentication mechanism
+
+The documentation states that a user can authenticate using HTTP, Facebook, Persona, or a custom authentication.
+
+The library code does not provide a way to check the credentials before going further in the app workflow.
+
+For example, if you use the HTTP authentication:
+
+* Configure the CBL replication object with the HTTP credentials
+* Register to get notified when replication changes its status
+* Start the replication
+* Get notified that there is an error
+  * Check the error and notice that this is an authentication error
+
+The best way for me is the have the user authenticate to our own backend. Once the authentication succeeded, the backend sends a somewhat random username/password pair to the application which can use it to replicate with the Sync Gateway. 
+
 ## Do not access Couchbase directly
 
 Do every CRUD operation using the Sync Gateway API, never directly the Couchbase API. If you need special access to a bucket, check [bucket shadowing](https://github.com/couchbase/sync_gateway/wiki/Bucket-Shadowing), although it seems to have been [deprecated](https://gitter.im/couchbase/mobile?at=55a8d8c6ad99869443daa873).

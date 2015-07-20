@@ -51,8 +51,20 @@ The four main parts are users, roles, channels and of course documents.
 * User and roles are given access to channels by the sync function
   * Once *one* document gives access to a channel, the user/role has access to every document in the channel
 * The sync function is executed for each new revision of a document. The channels can therefore change for every new revision
-* Once a document is deleted, the access rights it has given to users/roles are revoked. (See [this thread](https://groups.google.com/d/msg/mobile-couchbase/scBfRI7eeIA/JWd_K4QLyDUJ)). If multiple documents give access to a channel, the rights are not revoked.
 * When the sync function validates a newly deleted document, it has to take care that all the properties have been removed. The function should treat deletions specially.
+
+### Be extra careful when deleting a document that gives access to channels
+
+Once a document is deleted, the access rights it has given to users/roles are revoked. If multiple documents give access to a channel, the rights are not revoked.
+
+This means that when a document giving accesses is deleted, **no** document in the related channels will not be replicated to the users. This also means that the users will not be able to see that this particular document has been deleted (since they are not in the channel anymore).
+
+There are multiple solutions to this:
+
+* Put documents that give accesses and can be deleted in at least two channels. When the document is deleted it will stay in another channel which the users still have access and will see the deletion
+* Create a "hardcoded" channel and give access to it to users using the sync gateway config file or the REST API. Doing this will prevent having channels that "disappear" when a document is deleted
+
+See [this thread](https://groups.google.com/d/msg/mobile-couchbase/scBfRI7eeIA/JWd_K4QLyDUJ) and [this pull request](https://github.com/jschmid/couchbase-chat/pull/11) talking about a specific problem I had when developing the chat application.
 
 ## Do not access Couchbase directly
 

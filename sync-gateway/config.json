@@ -18,19 +18,19 @@
       "users": {
         "user1": {
           "password": "user1",
-          "admin_channels": ["users"]
+          "admin_channels": ["users", "user1-rooms"]
         },
         "user2": {
           "password": "user2",
-          "admin_channels": ["users"]
+          "admin_channels": ["users", "user2-rooms"]
         },
         "user3": {
           "password": "user3",
-          "admin_channels": ["users"]
+          "admin_channels": ["users", "user3-rooms"]
         },
         "user4": {
           "password": "user4",
-          "admin_channels": ["users"]
+          "admin_channels": ["users", "user4-rooms"]
         },
         "admin": {
           "password": "admin",
@@ -50,7 +50,7 @@
         // We have to use the oldDoc values.
         if(doc._deleted) {
           if(oldDoc.type == "chatroom" || oldDoc.type == "message") {
-            requireUser(oldDoc.user)
+            requireUser(oldDoc.user);
           } else if (oldDoc.type == "user") {
             throw ({forbidden : "Cannot delete a user!"})
           }
@@ -58,27 +58,33 @@
           return;
         }
 
+        // We cannot check the "_deleted" status here because the "type" property
+        // does not exist anymore. The execution would never go here.
         if (doc.type == "user") {
           requireRole("admin");
           channel("users");
+
         } else if(doc.type == "chatroom") {
           var roomId = doc._id;
           var roomMembers = doc.members;
           var roomChannel = "room-" + roomId;
           channel(roomChannel);
           access(roomMembers, roomChannel);
-        } else if(doc.type == "message") {
-          // We cannot check the "_deleted" status here because the "type" property
-          // does not exist anymore. The execution would never go here.
+          roomMembers.forEach(function(user) {
+            var roomUser = user + "-rooms";
+            channel(roomUser);
+          });
 
+        } else if(doc.type == "message") {
           // A user can only update its own messages
           if(oldDoc) {
-            requireUser(oldDoc.user)
+            requireUser(oldDoc.user);
           }
 
           var roomId = doc.room;
           var messageChannel = "room-" + roomId;
           channel(messageChannel);
+          requireAccess(messageChannel);
         }
       }
       `

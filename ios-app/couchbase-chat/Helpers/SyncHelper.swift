@@ -28,8 +28,26 @@ class SyncHelper: NSObject {
         self.creds = NSURLCredential(user: username, password: password, persistence: .Permanent)
 
         do {
+            let prefs = NSUserDefaults.standardUserDefaults()
+            prefs.setObject("ForestDB", forKey: "CBLStorageType")
+            prefs.synchronize()
+
             let manager = CBLManager.sharedInstance()
             try self.database = manager.databaseNamed(kDatabaseName)
+
+            CBLManager.enableLogging("CBLDatabase")
+            CBLManager.enableLogging("CBL_URLProtocol")
+            CBLManager.enableLogging("CBLValidation")
+            CBLManager.enableLogging("CBLRemoteRequest")
+            CBLManager.enableLogging("CBLMultiStreamWriter")
+            CBLManager.enableLogging("ChangeTracker")
+            CBLManager.enableLogging("ChangeTrackerVerbose")
+            CBLManager.enableLogging("JSONSchema")
+            CBLManager.enableLogging("Query")
+            CBLManager.enableLogging("Sync")
+            CBLManager.enableLogging("View")
+            CBLManager.enableLogging("WS")
+
         } catch {
             database = nil
         }

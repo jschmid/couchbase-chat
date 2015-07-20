@@ -6,7 +6,7 @@ The app is a simple chat app with different chatrooms. A user can create a room 
 
 ## Sync gateway config
 
-The sync gateway [config.json](sync-gateway.json) file describes the config used for the app.
+The sync gateway [config.json](sync-gateway/config.json) file describes the config used for the app.
 
 All users are in the `users` channel so that they all know about the other users when creating a new chat room.
 

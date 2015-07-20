@@ -56,7 +56,7 @@ The four main parts are users, roles, channels and of course documents.
 
 ## Do not access Couchbase directly
 
-Do every CRUD operation using the Sync Gateway API, never directly the Couchbase API. If you need special access to a bucket, check [bucket shadowing](https://github.com/couchbase/sync_gateway/wiki/Bucket-Shadowing).
+Do every CRUD operation using the Sync Gateway API, never directly the Couchbase API. If you need special access to a bucket, check [bucket shadowing](https://github.com/couchbase/sync_gateway/wiki/Bucket-Shadowing), although it seems to have been [deprecated](https://gitter.im/couchbase/mobile?at=55a8d8c6ad99869443daa873).
 
 ## Website using Couchbase
 

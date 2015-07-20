@@ -18,18 +18,26 @@ class ChatViewController: UIViewController {
     lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
+
+        db.viewNamed("messages").setMapBlock("3") { (doc, emit) in
+            if let type = doc["type"] as? String where type == "message" {
+                if let room = doc["room"] as? String,
+                    let date = doc["created_at"] as? String,
+                    let username = doc["user"] as? String,
+                    let message = doc["message"] as? String {
+                    emit([room, date], [username, message])
+                }
+            }
+        }
+
         return db
         }()
-
-    lazy var queryBuilder: CBLQueryBuilder = {
-        let builder = CBLQueryBuilder(database: self.database, select: ["username", "message"], `where`: "type == 'message' and room = $room", orderBy: ["created_at"], error: nil)
-        return builder
-    }()
 
     lazy var username: String = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         return app.syncHelper!.username
     }()
+
 
     var chatroomId: String? {
         didSet {
@@ -60,23 +68,22 @@ class ChatViewController: UIViewController {
         if let roomId = self.chatroomId,
             let chatroom = self.chatroomDoc {
 
-                let roomname = chatroom["name"] as? String
-                self.title = roomname
+            let roomname = chatroom["name"] as? String
+            self.title = roomname
 
-                if let live = liveQuery {
-                    live.removeObserver(self, forKeyPath: "rows")
-                }
+            if let live = liveQuery {
+                live.removeObserver(self, forKeyPath: "rows")
+            }
 
-                let query = self.queryBuilder.createQueryWithContext(["room": roomId])
-                let rows = try! query.run()
-                for row in rows {
-                    print(row.document)
-                }
-                let live = query.asLiveQuery()
-                
-                live.addObserver(self, forKeyPath: "rows", options: [], context: nil)
-                
-                liveQuery = live
+            let view = database.viewNamed("messages")
+            let query = view.createQuery()
+            query.startKey = [roomId]
+            query.endKey = [roomId, [:]]
+            let live = query.asLiveQuery()
+
+            live.addObserver(self, forKeyPath: "rows", options: [], context: nil)
+
+            liveQuery = live
         }
     }
 

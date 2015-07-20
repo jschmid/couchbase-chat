@@ -56,6 +56,7 @@ class SyncHelper: NSObject {
     }
 
     func start() {
+        addValidations()
         setupReplication(push)
         setupReplication(pull)
         push.start()
@@ -84,6 +85,32 @@ class SyncHelper: NSObject {
             lastSyncError = error
             if error != nil {
                 print("Error syncing", forError: error)
+            }
+        }
+    }
+
+    func addValidations() {
+        database.setValidationNamed("emptyChatroom") { rev, ctx in
+            if let props = rev.properties as? [String:AnyObject],
+                let type = props["type"] as? String
+                where type == "chatroom" {
+                    if let members = props["members"] as? [String] {
+                        if members.count < 2 {
+                            ctx.rejectWithMessage("Chatroom must have at least two members")
+                        }
+                    }
+            }
+        }
+
+        database.setValidationNamed("messageSchema") { rev, ctx in
+            if let props = rev.properties as? [String:AnyObject],
+                let type = props["type"] as? String
+                where type == "message" {
+                do {
+                    try CBLJSONValidator.validateJSONObject(props, withSchemaNamed: "message_schema")
+                } catch {
+                    ctx.rejectWithMessage("Could not validate document: \(error)")
+                }
             }
         }
     }

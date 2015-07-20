@@ -52,6 +52,11 @@ class ChooseNameController: UIViewController {
         ]
 
         let doc = database.createDocument()
-        try! doc.putProperties(properties)
+
+        do {
+            try doc.putProperties(properties)
+        } catch {
+            print("Could not create chatroom: \(error)")
+        }
     }
 }

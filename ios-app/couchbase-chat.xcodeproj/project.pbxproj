@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		DD3C70001B567A20001CB100 /* libCBLForestDBStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */; };
 		DD3C70021B567AE4001CB100 /* libc++.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = DD3C70011B567AE4001CB100 /* libc++.1.dylib */; };
+		DD4DAB701B5D1D7300FF6B36 /* CBLJSONValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = DD4DAB6F1B5D1D7300FF6B36 /* CBLJSONValidator.m */; };
+		DD4DAB731B5D1E8E00FF6B36 /* message_schema.json in Resources */ = {isa = PBXBuildFile; fileRef = DD4DAB721B5D1E8E00FF6B36 /* message_schema.json */; };
 		DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E211B4FB0D6009D68FF /* AppDelegate.swift */; };
 		DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD609E231B4FB0D6009D68FF /* MasterViewController.swift */; };
 		DD609E291B4FB0D6009D68FF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD609E271B4FB0D6009D68FF /* Main.storyboard */; };
@@ -29,6 +31,9 @@
 /* Begin PBXFileReference section */
 		DD3C6FFF1B567A20001CB100 /* libCBLForestDBStorage.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libCBLForestDBStorage.a; path = Frameworks/libCBLForestDBStorage.a; sourceTree = "<group>"; };
 		DD3C70011B567AE4001CB100 /* libc++.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.1.dylib"; path = "../../../../../../Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/libc++.1.dylib"; sourceTree = "<group>"; };
+		DD4DAB6E1B5D1D7300FF6B36 /* CBLJSONValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CBLJSONValidator.h; path = Vendor/CBLJSONValidator.h; sourceTree = "<group>"; };
+		DD4DAB6F1B5D1D7300FF6B36 /* CBLJSONValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CBLJSONValidator.m; path = Vendor/CBLJSONValidator.m; sourceTree = "<group>"; };
+		DD4DAB721B5D1E8E00FF6B36 /* message_schema.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = message_schema.json; path = Files/message_schema.json; sourceTree = "<group>"; };
 		DD609E1E1B4FB0D6009D68FF /* couchbase-chat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "couchbase-chat.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD609E211B4FB0D6009D68FF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD609E231B4FB0D6009D68FF /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MasterViewController.swift; path = Controllers/MasterViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +71,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DD4DAB6D1B5D1D5A00FF6B36 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				DD4DAB6E1B5D1D7300FF6B36 /* CBLJSONValidator.h */,
+				DD4DAB6F1B5D1D7300FF6B36 /* CBLJSONValidator.m */,
+			);
+			name = Vendor;
+			sourceTree = "<group>";
+		};
+		DD4DAB711B5D1E8500FF6B36 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				DD4DAB721B5D1E8E00FF6B36 /* message_schema.json */,
+			);
+			name = Files;
+			sourceTree = "<group>";
+		};
 		DD609E151B4FB0D6009D68FF = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +111,8 @@
 				DD609E211B4FB0D6009D68FF /* AppDelegate.swift */,
 				DDC028731B53AE00000419A2 /* Helpers */,
 				DDC028741B53AE0B000419A2 /* Controllers */,
+				DD4DAB6D1B5D1D5A00FF6B36 /* Vendor */,
+				DD4DAB711B5D1E8500FF6B36 /* Files */,
 				DD609E271B4FB0D6009D68FF /* Main.storyboard */,
 				DD609E2A1B4FB0D6009D68FF /* Assets.xcassets */,
 				DD609E2C1B4FB0D6009D68FF /* LaunchScreen.storyboard */,
@@ -190,6 +214,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD4DAB731B5D1E8E00FF6B36 /* message_schema.json in Resources */,
 				DD609E2E1B4FB0D6009D68FF /* LaunchScreen.storyboard in Resources */,
 				DD609E2B1B4FB0D6009D68FF /* Assets.xcassets in Resources */,
 				DD609E291B4FB0D6009D68FF /* Main.storyboard in Resources */,
@@ -208,6 +233,7 @@
 				DD609E241B4FB0D6009D68FF /* MasterViewController.swift in Sources */,
 				DDDE97E41B53D91D00AFA829 /* ChooseNameController.swift in Sources */,
 				DD61BEB51B4FC7DD007B7860 /* ChatViewController.swift in Sources */,
+				DD4DAB701B5D1D7300FF6B36 /* CBLJSONValidator.m in Sources */,
 				DDC028761B53AE95000419A2 /* SyncHelper.swift in Sources */,
 				DDEF39C61B4FF064007EE7C2 /* Utilities.swift in Sources */,
 				DD609E221B4FB0D6009D68FF /* AppDelegate.swift in Sources */,

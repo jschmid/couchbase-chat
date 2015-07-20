@@ -137,7 +137,11 @@ class ChatViewController: UIViewController {
         ]
 
         let doc = database.createDocument()
-        try! doc.putProperties(properties)
+        do {
+            try doc.putProperties(properties)
+        } catch {
+            print("Could not create messages: \(error)")
+        }
     }
 
     func sendEditedMessage(doc: CBLDocument, message: String) {

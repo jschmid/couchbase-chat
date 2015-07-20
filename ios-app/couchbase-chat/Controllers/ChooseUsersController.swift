@@ -16,22 +16,16 @@ class ChooseUsersController: UITableViewController {
     lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
-
-        db.viewNamed("users").setMapBlock("1") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "user" {
-                if let username = doc["username"] as? String, let docId = doc["_id"] {
-                    emit(username, docId)
-                }
-            }
-        }
-
         return db
         }()
 
+    lazy var queryBuilder: CBLQueryBuilder = {
+        let builder = CBLQueryBuilder(database: self.database, select: ["username"], `where`: "type == 'user'", orderBy: ["username"], error: nil)
+        return builder
+        }()
+
     override func viewDidLoad() {
-
-        let query = database.viewNamed("users").createQuery()
-
+        let query = self.queryBuilder.createQueryWithContext(nil)
         users = try! query.run()
     }
 

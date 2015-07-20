@@ -49,9 +49,7 @@
         // This is because deleted documents do not have any properties anymore.
         // We have to use the oldDoc values.
         if(doc._deleted) {
-          if(oldDoc.type == "chatroom") {
-            requireUser(oldDoc.user);
-          } else if (oldDoc.type == "message") {
+          if(oldDoc.type == "chatroom" || oldDoc.type == "message") {
             requireUser(oldDoc.user);
           } else if (oldDoc.type == "user") {
             throw ({forbidden : "Cannot delete a user!"})
@@ -60,25 +58,24 @@
           return;
         }
 
+        // We cannot check the "_deleted" status here because the "type" property
+        // does not exist anymore. The execution would never go here.
         if (doc.type == "user") {
           requireRole("admin");
           channel("users");
+
         } else if(doc.type == "chatroom") {
           var roomId = doc._id;
           var roomMembers = doc.members;
           var roomChannel = "room-" + roomId;
           channel(roomChannel);
           access(roomMembers, roomChannel);
-
           roomMembers.forEach(function(user) {
             var roomUser = user + "-rooms";
             channel(roomUser);
           });
 
         } else if(doc.type == "message") {
-          // We cannot check the "_deleted" status here because the "type" property
-          // does not exist anymore. The execution would never go here.
-
           // A user can only update its own messages
           if(oldDoc) {
             requireUser(oldDoc.user);
@@ -86,7 +83,6 @@
 
           var roomId = doc.room;
           var messageChannel = "room-" + roomId;
-
           channel(messageChannel);
           requireAccess(messageChannel);
         }

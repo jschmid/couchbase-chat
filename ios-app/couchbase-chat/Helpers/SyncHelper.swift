@@ -91,12 +91,11 @@ class SyncHelper: NSObject {
     }
 
     func createViews() {
-        database.viewNamed("chatrooms").setMapBlock("3") { (doc, emit) in
+        database.viewNamed("chatrooms").setMapBlock("4") { (doc, emit) in
             if let type = doc["type"] as? String where type == "chatroom" {
                 if let name = doc["name"] as? String,
-                    let docId = doc["_id"],
-                    let owner = doc["user"] as? String {
-                        emit(name, [docId, owner])
+                    let docId = doc["_id"] {
+                        emit(name, docId)
                 }
             }
         }

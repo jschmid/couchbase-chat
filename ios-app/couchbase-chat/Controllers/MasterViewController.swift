@@ -81,8 +81,7 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
                 if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-                    let values = row.value as? [String] {
-                        let roomId = values[0]
+                    let roomId = row.value as? String {
                         controller.chatroomId = roomId
                 }
             }
@@ -109,11 +108,9 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-            let name = row.key as? String,
-            let values = row.value as? [String] {
-                let owner = values[1]
+            let name = row.key as? String {
                 cell.textLabel?.text = name
-                cell.detailTextLabel?.text = owner
+                cell.detailTextLabel?.text = ""
         }
 
         return cell

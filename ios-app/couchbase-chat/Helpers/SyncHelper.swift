@@ -88,24 +88,26 @@ class SyncHelper: NSObject {
     }
 
     func createViews() {
-        database.viewNamed("chatrooms").setMapBlock("4") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "chatroom" {
-                if let name = doc["name"] as? String,
-                    let docId = doc["_id"] {
-                        emit(name, docId)
-                }
+        let chatroomView = database.viewNamed("chatrooms")
+        chatroomView.documentType = "chatroom"
+        chatroomView.setMapBlock("4") { (doc, emit) in
+            if let name = doc["name"] as? String,
+                let docId = doc["_id"] {
+                    emit(name, docId)
+
             }
         }
 
-        database.viewNamed("messages").setMapBlock("3") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "message" {
-                if let room = doc["room"] as? String,
-                    let date = doc["created_at"] as? String,
-                    let username = doc["user"] as? String,
-                    let message = doc["message"] as? String {
-                        emit([room, date], [username, message])
-                }
+        let messagesView = database.viewNamed("messages")
+        messagesView.documentType = "message"
+        messagesView.setMapBlock("3") { (doc, emit) in
+            if let room = doc["room"] as? String,
+                let date = doc["created_at"] as? String,
+                let username = doc["user"] as? String,
+                let message = doc["message"] as? String {
+                    emit([room, date], [username, message])
             }
+
         }
     }
 

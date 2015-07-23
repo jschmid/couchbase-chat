@@ -17,17 +17,6 @@ class MasterViewController: UITableViewController {
     lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
-
-        db.viewNamed("chatrooms").setMapBlock("3") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "chatroom" {
-                if let name = doc["name"] as? String,
-                    let docId = doc["_id"],
-                    let owner = doc["user"] as? String {
-                    emit(name, [docId, owner])
-                }
-            }
-        }
-
         return db
     }()
 
@@ -92,8 +81,7 @@ class MasterViewController: UITableViewController {
                 controller.navigationItem.leftItemsSupplementBackButton = true
 
                 if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-                    let values = row.value as? [String] {
-                        let roomId = values[0]
+                    let roomId = row.value as? String {
                         controller.chatroomId = roomId
                 }
             }
@@ -121,10 +109,14 @@ class MasterViewController: UITableViewController {
 
         if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
             let name = row.key as? String,
-            let values = row.value as? [String] {
-                let owner = values[1]
+            let roomId = row.value as? String {
                 cell.textLabel?.text = name
-                cell.detailTextLabel?.text = owner
+
+                if let msg = lastMessageForRoom(roomId) {
+                    cell.detailTextLabel?.text = msg
+                } else {
+                    cell.detailTextLabel?.text = ""
+                }
         }
 
         return cell
@@ -153,6 +145,27 @@ class MasterViewController: UITableViewController {
         }
     }
 
+    func lastMessageForRoom(roomId: String) -> String? {
+        let query = database.viewNamed("messages").createQuery()
+        query.startKey = [roomId, []]
+        query.endKey = [roomId]
+        query.limit = 1
+        query.prefetch = true
+        query.descending = true
 
+        do {
+            let enumerator = try query.run()
+            if let row = enumerator.nextRow(),
+                let props = row.documentProperties as? [String: AnyObject],
+                let author = props["user"] as? String,
+                let msg = props["message"] as? String {
+                    return "\(author): \(msg)"
+            }
+        } catch {
+            print("Could not query the thing")
+        }
+
+        return nil
+    }
 }
 

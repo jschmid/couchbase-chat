@@ -108,9 +108,15 @@ class MasterViewController: UITableViewController {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
 
         if let row = liveQuery?.rows?.rowAtIndex(UInt(indexPath.row)),
-            let name = row.key as? String {
+            let name = row.key as? String,
+            let roomId = row.value as? String {
                 cell.textLabel?.text = name
-                cell.detailTextLabel?.text = ""
+
+                if let msg = lastMessageForRoom(roomId) {
+                    cell.detailTextLabel?.text = msg
+                } else {
+                    cell.detailTextLabel?.text = ""
+                }
         }
 
         return cell
@@ -139,6 +145,26 @@ class MasterViewController: UITableViewController {
         }
     }
 
+    func lastMessageForRoom(roomId: String) -> String? {
+        let query = database.viewNamed("messages").createQuery()
+        query.startKey = [roomId, []]
+        query.endKey = [roomId]
+        query.limit = 1
+        query.prefetch = true
+        query.descending = true
 
+        do {
+            let enumerator = try query.run()
+            if let row = enumerator.nextRow(),
+                let props = row.documentProperties as? [String: AnyObject],
+                let msg = props["message"] as? String {
+                    return msg
+            }
+        } catch {
+            print("Could not query the thing")
+        }
+
+        return nil
+    }
 }
 

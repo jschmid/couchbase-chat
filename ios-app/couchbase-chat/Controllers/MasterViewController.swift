@@ -157,8 +157,9 @@ class MasterViewController: UITableViewController {
             let enumerator = try query.run()
             if let row = enumerator.nextRow(),
                 let props = row.documentProperties as? [String: AnyObject],
+                let author = props["user"] as? String,
                 let msg = props["message"] as? String {
-                    return msg
+                    return "\(author): \(msg)"
             }
         } catch {
             print("Could not query the thing")

@@ -41,11 +41,8 @@ class SyncHelper: NSObject {
         CBLManager.enableLogging("WS")
 
         do {
-            let prefs = NSUserDefaults.standardUserDefaults()
-            prefs.setObject("ForestDB", forKey: "CBLStorageType")
-            prefs.synchronize()
-
             let manager = CBLManager.sharedInstance()
+            manager.storageType = "ForestDB"
             try self.database = manager.databaseNamed(kDatabaseName)
         } catch {
             database = nil

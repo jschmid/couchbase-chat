@@ -17,17 +17,6 @@ class MasterViewController: UITableViewController {
     lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
-
-        db.viewNamed("chatrooms").setMapBlock("3") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "chatroom" {
-                if let name = doc["name"] as? String,
-                    let docId = doc["_id"],
-                    let owner = doc["user"] as? String {
-                    emit(name, [docId, owner])
-                }
-            }
-        }
-
         return db
     }()
 

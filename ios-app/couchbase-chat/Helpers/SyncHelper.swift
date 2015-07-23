@@ -56,6 +56,7 @@ class SyncHelper: NSObject {
     }
 
     func start() {
+        createViews()
         addValidations()
         setupReplication(push)
         setupReplication(pull)
@@ -85,6 +86,29 @@ class SyncHelper: NSObject {
             lastSyncError = error
             if error != nil {
                 print("Error syncing", forError: error)
+            }
+        }
+    }
+
+    func createViews() {
+        database.viewNamed("chatrooms").setMapBlock("3") { (doc, emit) in
+            if let type = doc["type"] as? String where type == "chatroom" {
+                if let name = doc["name"] as? String,
+                    let docId = doc["_id"],
+                    let owner = doc["user"] as? String {
+                        emit(name, [docId, owner])
+                }
+            }
+        }
+
+        database.viewNamed("messages").setMapBlock("3") { (doc, emit) in
+            if let type = doc["type"] as? String where type == "message" {
+                if let room = doc["room"] as? String,
+                    let date = doc["created_at"] as? String,
+                    let username = doc["user"] as? String,
+                    let message = doc["message"] as? String {
+                        emit([room, date], [username, message])
+                }
             }
         }
     }

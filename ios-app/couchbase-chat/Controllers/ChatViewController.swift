@@ -18,18 +18,6 @@ class ChatViewController: UIViewController {
     lazy var database: CBLDatabase = {
         let app = UIApplication.sharedApplication().delegate as! AppDelegate
         let db = app.syncHelper!.database
-
-        db.viewNamed("messages").setMapBlock("3") { (doc, emit) in
-            if let type = doc["type"] as? String where type == "message" {
-                if let room = doc["room"] as? String,
-                    let date = doc["created_at"] as? String,
-                    let username = doc["user"] as? String,
-                    let message = doc["message"] as? String {
-                    emit([room, date], [username, message])
-                }
-            }
-        }
-
         return db
         }()
 
